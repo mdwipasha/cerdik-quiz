@@ -74,6 +74,7 @@ class SiswaController extends Controller
     {
         $quiz = Quiz::where('slug', $slug)->with('question.answer')->firstOrFail();
         $userAnswers = session()->get("quiz_{$quiz->id}_answers", []);
+        $correct = 0;
         $score = 0;
         $results = [];
     
@@ -92,17 +93,19 @@ class SiswaController extends Controller
             ];
     
             if ($isCorrect) {
-                $score++;
+                $correct++;
+                $score+=20;
             }
         }
     
         // Tentukan apakah siswa lulus atau tidak
-        $status = $score == $quiz->question->count() ? 'Passed' : 'Not Passed';
+        $status = $correct == $quiz->question->count() ? 'Passed' : 'Not Passed';
     
         // Simpan hasil ke database
         UserQuiz::create([
             'quiz_id' => $quiz->id,
             'user_id' => auth()->id(),
+            'correct' => $correct,
             'score' => $score,
             'status' => 1,
         ]);
@@ -110,12 +113,13 @@ class SiswaController extends Controller
         // Hapus sesi setelah selesai
         session()->forget("quiz_{$quiz->id}_answers");
     
-        return view('Student.result', compact('quiz', 'results', 'score', 'status'));
+        return view('Student.result', compact('quiz', 'results', 'correct', 'score', 'status'));
     }
     
 
     public function finished() {
-        return view('Student.finished');
+        $results = auth()->user()->userQuiz()->with('quiz')->get();
+        return view('Student.finished', compact('results'));
     }
 
 }

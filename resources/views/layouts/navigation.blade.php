@@ -22,6 +22,11 @@
                             <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Courses') }}
                         </x-nav-link>                        
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('quiz.finished')" :active="request()->routeIs('quiz.finished')">
+                            <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('Results') }}
+                        </x-nav-link>                        
+                    </div>
                 @endif
                 @if (Auth::user()->role_id == 2)
                  <!-- Logo -->

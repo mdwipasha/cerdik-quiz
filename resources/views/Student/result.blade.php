@@ -32,7 +32,8 @@
 
                     <!-- Score Section -->
                     <div class="mt-4 text-center">
-                        <p class="text-xl font-extrabold text-gray-900">{{ $score }} of {{ $quiz->question->count() }} Correct</p>
+                        <p class="text-xl font-extrabold text-gray-900">{{ $correct }} of {{ $quiz->question->count() }} Correct</p>
+                        <p class="text-xl font-extrabold text-gray-900">Score : {{ $correct }}</p>
                     </div>
 
                     <!-- Questions Section -->

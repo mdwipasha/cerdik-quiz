@@ -10,7 +10,7 @@ class UserQuiz extends Model
     use HasFactory;
 
     protected $table = 'user_quizzes';
-    protected $fillable = ['quiz_id','user_id','score','status'];
+    protected $fillable = ['quiz_id','user_id','score','status','correct'];
     protected $with = ['user','quiz'];
 
     public function user()

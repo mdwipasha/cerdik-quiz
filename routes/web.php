@@ -30,7 +30,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/student/courses', [SiswaController::class, 'courses'])->name('siswa.course');
     Route::get('/student/courses/{slug}/question/{index}', [SiswaController::class, 'question'])->name('quiz.question');
     Route::post('/student/courses/{slug}/answer', [SiswaController::class, 'answer'])->name('quiz.answer');
-    Route::get('/student/courses/{slug}/finished', [SiswaController::class, 'finished'])->name('quiz.finished');
+    Route::get('/student/courses/finished', [SiswaController::class, 'finished'])->name('quiz.finished');
     Route::get('/student/courses/{slug}/result', [SiswaController::class, 'result'])->name('quiz.result');
 });
 

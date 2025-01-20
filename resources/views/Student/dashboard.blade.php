@@ -16,7 +16,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         @foreach ($newestCourses as $course)
                             <div class="border rounded-lg overflow-hidden shadow-md">
-                                <img src="{{ Storage::url($course->image) }}" alt="Cover {{ $course->title }}" class="w-full h-32 object-cover">
+                                <img src="{{ $course->image && Storage::exists($course->image) ? Storage::url($course->image) : asset('assets/img/no-image.jpg') }}" alt="Cover {{ $course->title }}" class="w-full h-32 object-cover">
                                 <div class="p-4">
                                     <h4 class="font-semibold text-lg mb-2">
                                         <a href="{{ route('siswa.detail.courses', ['slug' => $course->slug]) }}" class="text-blue-500 hover:underline">

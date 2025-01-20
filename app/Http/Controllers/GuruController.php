@@ -32,7 +32,7 @@ class GuruController extends Controller
     public function storeQuiz(Request $request) {
         $validated = $request->validate([
             'title' => 'required|string|max:255|unique:quizzes,title',
-            'description' => 'required|string|max:255',
+            'description' => 'string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_private' => 'required|boolean',
         ]);

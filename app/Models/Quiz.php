@@ -17,9 +17,9 @@ class Quiz extends Model
         'user_emails' => 'array',
     ];
     
-    public function students()
+    public function userQuiz()
     {
-        return $this->belongsToMany(User::class, 'user_quizzes', 'quiz_id', 'user_id');
+        return $this->hasMany(UserQuiz::class);
     }
 
     public function user()
