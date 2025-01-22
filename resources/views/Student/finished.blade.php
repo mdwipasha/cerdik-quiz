@@ -6,7 +6,7 @@
             <span class="mx-2">/</span>
             <a href="{{ route('siswa.course') }}" class="hover:text-gray-700">My Courses</a>
             <span class="mx-2">/</span>
-            <span class="text-black">Rapport Details</span>
+            <span class="text-black">Results Details</span>
         </nav>
     </x-slot>
 
@@ -14,7 +14,7 @@
         <div class="max-w-4xl mx-auto px-6 lg:px-8">
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <div class="p-6">
-                    <h1 class="text-xl font-semibold text-gray-700 mb-4">Rapport Details</h1>
+                    <h1 class="text-xl font-semibold text-gray-700 mb-4">Results Details</h1>
                     
                     <table class="table-auto w-full border-collapse border border-gray-200">
                         <thead>
@@ -53,13 +53,7 @@
                                 </tr>
                             @endforelse
                         </tbody>
-                    </table>
-
-                    <div class="mt-4">
-                        <a href="{{ route('siswa.course') }}" class="text-blue-600 hover:underline">
-                            &larr; Back to My Courses
-                        </a>
-                    </div>
+                    </table>    
                 </div>
             </div>
         </div>

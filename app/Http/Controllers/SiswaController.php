@@ -75,8 +75,11 @@ class SiswaController extends Controller
         $quiz = Quiz::where('slug', $slug)->with('question.answer')->firstOrFail();
         $userAnswers = session()->get("quiz_{$quiz->id}_answers", []);
         $correct = 0;
-        $score = 0;
         $results = [];
+    
+        // Hitung skor per pertanyaan
+        $totalQuestions = $quiz->question->count();
+        $scorePerQuestion = 100 / $totalQuestions; // Skor maksimum 100
     
         // Loop melalui setiap pertanyaan untuk mengevaluasi jawaban
         foreach ($quiz->question as $question) {
@@ -94,12 +97,14 @@ class SiswaController extends Controller
     
             if ($isCorrect) {
                 $correct++;
-                $score+=20;
             }
         }
     
+        // Hitung skor total
+        $score = $correct * $scorePerQuestion;
+    
         // Tentukan apakah siswa lulus atau tidak
-        $status = $correct == $quiz->question->count() ? 'Passed' : 'Not Passed';
+        $status = $score >= 80 ? 'Passed' : 'Not Passed';
     
         // Simpan hasil ke database
         UserQuiz::create([
@@ -115,6 +120,7 @@ class SiswaController extends Controller
     
         return view('Student.result', compact('quiz', 'results', 'correct', 'score', 'status'));
     }
+    
     
 
     public function finished() {

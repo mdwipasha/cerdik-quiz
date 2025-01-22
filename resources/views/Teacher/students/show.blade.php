@@ -67,13 +67,13 @@
                                     <i class="bi bi-plus-circle mr-2"></i> Add Students
                                 </button>
                             </a>
-                            {{-- @if($course->user_emails->isEmpty())
+                            {{-- {{-- @if($course->user_emails->isEmpty()) --}}
                                 <div class="text-center">
                                     <p class="mt-3 mb-3 text-sm text-gray-500">Anda Belum Menambahkan Siswa</p>
                                 </div> 
-                            @else --}}
+                            {{-- @else  --}}
                             <div>
-                                @foreach($course->students as $student)
+                                {{-- @foreach($course->students as $student)
                                     <div class="mb-5">
                                         <div class="flex items-center justify-between p-4 border rounded-lg border-gray-300">
                                             <p class="text-lg font-black text-black capitalize">{{ $student->name }}</p>
@@ -83,7 +83,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                @endforeach --}}
                             </div>
                             {{-- @endif --}}
                         </div>

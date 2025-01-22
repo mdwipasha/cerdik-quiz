@@ -32,7 +32,7 @@ class GuruController extends Controller
     public function storeQuiz(Request $request) {
         $validated = $request->validate([
             'title' => 'required|string|max:255|unique:quizzes,title',
-            'description' => 'string|max:255',
+            'description' => 'gurustring|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_private' => 'required|boolean',
         ]);
@@ -122,7 +122,7 @@ class GuruController extends Controller
     //STUDENTS
 
     public function showStudent($slug) {
-        $course = Quiz::where('slug', $slug)->with('students')->firstOrFail();
+        $course = Quiz::where('slug', $slug)->firstOrFail();
         return view('Teacher.students.show', compact('course'));
     }
 
