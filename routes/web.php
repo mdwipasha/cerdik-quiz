@@ -44,6 +44,7 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/teacher/courses/{id}/edit', [GuruController::class, 'editQuiz'])->name('edit.quiz');
     Route::post('/teacher/courses/{id}', [GuruController::class, 'updateQuiz'])->name('update.quiz');
     Route::delete('/teacher/courses/{id}', [GuruController::class, 'deleteQuiz'])->name('delete.quiz');
+    Route::get('/teacher/courses/{slug}/result', [GuruController::class, 'resultQuiz'])->name('result.courses');
     
     //QUESTIONS
     Route::get('/teacher/courses/detail/{slug}', [QuizController::class, 'showQuestion'])->name('detail.courses');

@@ -29,7 +29,7 @@
                                     <i class="bi bi-calendar mr-1 text-lg"></i> {{ $course->created_at->format('F j, Y') }}
                                 </span>
                                 <span class="flex items-center">
-                                    <i class="bi bi-person mr-1 text-lg"></i> 0
+                                    <i class="bi bi-person mr-1 text-lg"></i> {{ is_array($course->user_emails) || $course->user_emails instanceof Countable ? count($course->user_emails) : '0' }}
                                 </span>
                             </div>
                             @if($course->is_private == 0)

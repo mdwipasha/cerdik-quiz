@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Quiz;
 use App\Models\Question;
+use App\Models\UserQuiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -17,6 +18,20 @@ class GuruController extends Controller
 
         return view('Teacher.dashboard', compact('user','quizCount'));
     }
+
+    public function resultQuiz($slug)
+    {
+        // Ambil kuis berdasarkan slug
+        $quiz = Quiz::where('slug', $slug)->firstOrFail();
+    
+        // Ambil hasil kuis dari user yang sedang login
+        $results = UserQuiz::where('quiz_id', $quiz->id)
+        ->with('user')
+        ->get();
+    
+        // Tampilkan view dengan data hasil
+        return view('Teacher.result', compact('results', 'quiz'));
+    }    
 
     //QUIZ
 
@@ -32,7 +47,7 @@ class GuruController extends Controller
     public function storeQuiz(Request $request) {
         $validated = $request->validate([
             'title' => 'required|string|max:255|unique:quizzes,title',
-            'description' => 'gurustring|max:255',
+            'description' => 'string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_private' => 'required|boolean',
         ]);

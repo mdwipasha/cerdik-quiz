@@ -42,7 +42,7 @@
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('guru.courses')" :active="request()->routeIs('guru.courses') || request()->routeIs('detail.courses') || request()->routeIs('question.courses') || request()->routeIs('siswa.courses')">
+                        <x-nav-link :href="route('guru.courses')" :active="request()->routeIs('guru.courses') || request()->routeIs('edit.quiz') || request()->routeIs('detail.courses') || request()->routeIs('question.courses') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('siswa.courses') || request()->routeIs('result.courses')">
                             <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Courses') }}
                         </x-nav-link>                        
                     </div>
@@ -111,9 +111,9 @@
             <x-responsive-nav-link :href="route('guru.dashboard')" :active="request()->routeIs('guru.dashboard')">
                 <i class="bi bi-house me-1 text-lg"></i> {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('guru.courses')" :active="request()->routeIs('guru.courses') || request()->routeIs('detail.courses') || request()->routeIs('question.courses') || request()->routeIs('siswa.courses')">
+            <x-responsive-nav-link :href="route('guru.courses')" :active="request()->routeIs('guru.courses') || request()->routeIs('edit.quiz') || request()->routeIs('detail.courses') || request()->routeIs('question.courses') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('siswa.courses') || request()->routeIs('result.courses')">
                 <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Courses') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link>      
             <x-responsive-nav-link :href="route('create.courses')" :active="request()->routeIs('create.courses')">
                 <i class="bi bi-journal-plus me-1 text-lg"></i> {{ __('New Courses') }}
             </x-responsive-nav-link>
