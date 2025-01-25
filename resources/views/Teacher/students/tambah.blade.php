@@ -13,6 +13,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-md rounded-lg p-6">
+                @if ($errors->has('emails'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('emails') }}
+                    </div>
+                @endif
+
                 <!-- Course Card -->
                 <div class="bg-gray-50 p-6 rounded-lg shadow-md">
                     <div class="flex items-center">
@@ -28,9 +34,11 @@
                                 <span class="mr-4 flex items-center">
                                     <i class="bi bi-calendar mr-1 text-lg"></i> {{ $course->created_at->format('F j, Y') }}
                                 </span>
+                            @if($course->is_private == 0)
                                 <span class="flex items-center">
                                     <i class="bi bi-person mr-1 text-lg"></i> {{ is_array($course->user_emails) || $course->user_emails instanceof Countable ? count($course->user_emails) : '0' }}
                                 </span>
+                            @endif
                             </div>
                             @if($course->is_private == 0)
                                 <span class="bg-red-100 text-red-600 px-3 py-1 rounded-md text-sm">PRIVATE</span>
@@ -53,6 +61,9 @@
                             </div>
                             <input type="email" name="emails[]" id="email" placeholder="Write Student Email Addres"
                                 class="w-full pl-10 py-3 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            @error('emails.*')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         <!-- Save Button -->
                         <div class="mt-6">

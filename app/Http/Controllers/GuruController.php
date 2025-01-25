@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quiz;
+use App\Models\User;
 use App\Models\Question;
 use App\Models\UserQuiz;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class GuruController extends Controller
@@ -15,8 +16,13 @@ class GuruController extends Controller
     public function index() {
         $user = Auth::user();
         $quizCount = $user->quiz->count();
+        // Ambil quiz yang dimiliki oleh user saat ini
+        $quizzes = Quiz::with('question') // Eager load untuk mengurangi query
+            ->where('user_id', $user->id)
+            ->latest() // Urutkan berdasarkan yang terbaru
+            ->paginate(3); // Batasi tampilan ke 3 quiz terbaru;
 
-        return view('Teacher.dashboard', compact('user','quizCount'));
+        return view('Teacher.dashboard', compact('user','quizCount','quizzes'));
     }
 
     public function resultQuiz($slug)
@@ -27,6 +33,7 @@ class GuruController extends Controller
         // Ambil hasil kuis dari user yang sedang login
         $results = UserQuiz::where('quiz_id', $quiz->id)
         ->with('user')
+        ->oldest()
         ->get();
     
         // Tampilkan view dengan data hasil
@@ -81,7 +88,7 @@ class GuruController extends Controller
     public function updateQuiz(Request $request, $id) {
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'string',
             'is_private' => 'required|boolean',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -136,10 +143,24 @@ class GuruController extends Controller
 
     //STUDENTS
 
-    public function showStudent($slug) {
-        $course = Quiz::where('slug', $slug)->firstOrFail();
-        return view('Teacher.students.show', compact('course'));
-    }
+    public function showStudent($slug)
+    {
+        $course = Quiz::where('slug', $slug)->with('userQuiz')->firstOrFail();
+    
+        // Tangani null atau kosong
+        $userEmails = $course->user_emails ? (is_string($course->user_emails) ? explode(',', $course->user_emails) : $course->user_emails) : [];
+    
+        $students = !empty($userEmails) ? User::whereIn('email', $userEmails)->get() : collect();
+    
+        $buttons = $course->userQuiz->map(function($quiz) {
+            return [
+                'class' => $quiz->status ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800',
+                'text'  => $quiz->status ? 'Not Started' : 'Passed',
+            ];
+        });
+
+        return view('Teacher.students.show', compact('course', 'students', 'buttons'));
+    }    
 
     public function createStudent($slug) {
         $course = Quiz::where('slug', $slug)->firstOrFail();
@@ -148,19 +169,43 @@ class GuruController extends Controller
 
     public function storeStudent(Request $request, $quizId)
     {
-        $quiz = Quiz::find($quizId);
+        $quiz = Quiz::findOrFail($quizId);
 
         // Validasi email siswa
         $validated = $request->validate([
             'emails' => 'required|array',
-            'emails.*' => 'email|exists:users,email', // Pastikan email ada di database
+            'emails.*' => [
+                'email',
+                function ($attribute, $value, $fail) {
+                    // Pastikan email ada di tabel users dengan role siswa
+                    $user = User::where('email', $value)->where('role_id', '1')->first();
+                    if (!$user) {
+                        $fail('Email ' . $value . ' tidak valid atau bukan siswa.');
+                    }
+                },
+            ],
         ]);
 
-        // Tambahkan email siswa ke quiz
-        $quiz->user_emails = array_merge($quiz->user_emails ?? [], $validated['emails']);
+        // Dapatkan email yang sudah ada di quiz
+        $existingEmails = $quiz->user_emails ?? [];
+
+        // Filter email baru yang belum ada di daftar
+        $newEmails = array_filter($validated['emails'], function ($email) use ($existingEmails) {
+            return !in_array($email, $existingEmails);
+        });
+
+        // Jika tidak ada email baru untuk ditambahkan, kembalikan pesan kesalahan
+        if (empty($newEmails)) {
+            return redirect()->back()->withErrors(['emails' => 'Siswa dengan Email yang ditambahkan sudah bergabung di quiz.']);
+        }
+
+        // Tambahkan email baru ke quiz
+        $quiz->user_emails = array_merge($existingEmails, $newEmails);
         $quiz->save();
 
-        return redirect()->route('show.siswa', $quiz->slug)->with('success','Berhasil Menambah Siswa!');
+        return redirect()->route('show.siswa', $quiz->slug)->with('success', 'Berhasil Menambah Siswa Baru!');
     }
+
+
 
 }

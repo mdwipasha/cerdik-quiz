@@ -35,8 +35,8 @@ class SiswaController extends Controller
         $quiz = Quiz::where('slug', $slug)->with('question.answer')->firstOrFail();
         $questions = $quiz->question;
 
-        if (!$quiz) {
-            abort(404); // Quiz tidak ditemukan
+        if (!$quiz || empty($questions->count())) {
+            return redirect()->back()->withErrors(['question' => 'Quiz Atau Pertanyaan Belum Tersedia!']); // Quiz tidak ditemukan
         }
 
         if ($quiz->is_private == false && !in_array(auth()->user()->email, $quiz->user_emails ?? [])) {

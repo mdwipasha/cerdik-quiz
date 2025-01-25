@@ -29,9 +29,11 @@
                                     <span class="mr-4 flex items-center">
                                         <i class="bi bi-calendar mr-1 text-lg"></i> {{ $course->created_at->format('F j, Y') }}
                                     </span>
+                                @if($course->is_private == 0)
                                     <span class="flex items-center">
                                         <i class="bi bi-person mr-1 text-lg"></i> {{ is_array($course->user_emails) || $course->user_emails instanceof Countable ? count($course->user_emails) : '0' }}
                                     </span>
+                                @endif
                                 </div>
                                 @if($course->is_private == 0)
                                 <span class="bg-red-100 text-red-600 px-3 py-1 rounded-md text-sm">PRIVATE</span>
@@ -67,25 +69,29 @@
                                     <i class="bi bi-plus-circle mr-2"></i> Add Students
                                 </button>
                             </a>
-                            {{-- {{-- @if($course->user_emails->isEmpty()) --}}
+                            @if(empty($course->user_emails))
                                 <div class="text-center">
                                     <p class="mt-3 mb-3 text-sm text-gray-500">Anda Belum Menambahkan Siswa</p>
                                 </div> 
-                            {{-- @else  --}}
+                            @else 
                             <div>
-                                {{-- @foreach($course->students as $student)
+                              @foreach($students as $student)
                                     <div class="mb-5">
                                         <div class="flex items-center justify-between p-4 border rounded-lg border-gray-300">
-                                            <p class="text-lg font-black text-black capitalize">{{ $student->name }}</p>
-                                            <p class="text-gray-500 text-sm">{{ $student->email }}</p>
+                                            <div>
+                                                <p class="text-lg font-black text-black capitalize">{{ $student->name }}</p>
+                                                <p class="text-gray-500 text-sm">{{ $student->email }}</p>
+                                            </div>
                                             <div class="flex space-x-2">
-                                                <button class="text-white bg-gray-500 px-2 py-1 rounded-full">Not Started</button>
+                                                {{-- <span class="{{ $course->userQuiz->status ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800' }} px-2 py-1 rounded-full">
+                                                    {{ $course->userQuiz->status ? 'Not Started' : 'Passed' }}
+                                                </span> --}}
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach --}}
+                                @endforeach
                             </div>
-                            {{-- @endif --}}
+                          @endif
                         </div>
                     </div>
                 </div>

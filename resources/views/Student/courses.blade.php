@@ -20,6 +20,12 @@
                         </div>
                     </div>
     
+                    @if ($errors->has('question'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('question') }}
+                    </div>
+                @endif
+
                     <!-- Table Section -->
                     <div class="overflow-x-auto">
                         <table class="min-w-full border-collapse">

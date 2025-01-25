@@ -79,7 +79,7 @@
                                             <a href="{{ route('detail.courses', ['slug' => $course->slug]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Manage</a>
                                             <a href="{{ route('result.courses', ['slug' => $course->slug]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Result</a>
                                             @if($course->is_private == 0)
-                                            <a href="{{ route('siswa.courses', ['slug' => $course->slug]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Add Students</a>
+                                            <a href="{{ route('show.siswa', ['slug' => $course->slug]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Add Students</a>
                                             @endif
                                             <a href="{{ route('edit.quiz', ['id' => $course->id]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Edit</a>
                                             <form method="POST" action="{{ route('delete.quiz', $course->id) }}" class="block">
