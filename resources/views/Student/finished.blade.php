@@ -33,13 +33,13 @@
                                     <td class="border border-gray-300 px-4 py-2">{{ $result->quiz->title }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $result->score }}</td>
                                     <td class="border border-gray-300 px-4 py-2">
-                                        @if ($result->status == 0)
-                                        <span class="px-2 py-1 text-sm font-medium rounded-lg bg-yellow-100 text-yellow-600">
-                                            Pending
+                                        @if ($result->status == 'failed')
+                                        <span class="px-2 py-1 text-sm font-medium rounded-lg bg-red-100 text-red-600">
+                                            {{ ucfirst($result->status) }}
                                         </span>
                                         @else
                                         <span class="px-2 py-1 text-sm font-medium rounded-lg bg-green-100 text-green-600">
-                                            Complete
+                                            {{ ucfirst($result->status) }}
                                         </span>
                                         @endif
                                     </td>

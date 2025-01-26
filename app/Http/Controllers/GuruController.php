@@ -28,7 +28,7 @@ class GuruController extends Controller
     public function resultQuiz($slug)
     {
         // Ambil kuis berdasarkan slug
-        $quiz = Quiz::where('slug', $slug)->firstOrFail();
+        $quiz = Quiz::where('slug', $slug)->with('question')->firstOrFail();
     
         // Ambil hasil kuis dari user yang sedang login
         $results = UserQuiz::where('quiz_id', $quiz->id)
@@ -150,16 +150,13 @@ class GuruController extends Controller
         // Tangani null atau kosong
         $userEmails = $course->user_emails ? (is_string($course->user_emails) ? explode(',', $course->user_emails) : $course->user_emails) : [];
     
-        $students = !empty($userEmails) ? User::whereIn('email', $userEmails)->get() : collect();
-    
-        $buttons = $course->userQuiz->map(function($quiz) {
-            return [
-                'class' => $quiz->status ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800',
-                'text'  => $quiz->status ? 'Not Started' : 'Passed',
-            ];
-        });
+        $students = !empty($userEmails)
+        ? User::whereIn('email', $userEmails)->with(['userQuiz' => function ($query) use ($course) {
+            $query->where('quiz_id', $course->id);
+        }])->get()
+        : collect();
 
-        return view('Teacher.students.show', compact('course', 'students', 'buttons'));
+        return view('Teacher.students.show', compact('course', 'students'));
     }    
 
     public function createStudent($slug) {
@@ -206,6 +203,35 @@ class GuruController extends Controller
         return redirect()->route('show.siswa', $quiz->slug)->with('success', 'Berhasil Menambah Siswa Baru!');
     }
 
+    public function deleteStudent(Request $request, $quizId)
+    {
+        $quiz = Quiz::findOrFail($quizId);
 
+        // Validasi email yang akan dihapus
+        $validated = $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $emailToRemove = $validated['email'];
+
+        // Dapatkan array email saat ini
+        $existingEmails = $quiz->user_emails ?? [];
+
+        // Periksa apakah email ada dalam array
+        if (!in_array($emailToRemove, $existingEmails)) {
+            return redirect()->back()->withErrors(['email' => 'Email tidak ditemukan di dalam quiz.']);
+        }
+
+        // Hapus email dari array
+        $updatedEmails = array_filter($existingEmails, function ($email) use ($emailToRemove) {
+            return $email !== $emailToRemove;
+        });
+
+        // Perbarui database
+        $quiz->user_emails = $updatedEmails;
+        $quiz->save();
+
+        return redirect()->route('show.siswa', $quiz->slug)->with('success', 'Siswa berhasil dihapus dari quiz.');
+    }
 
 }

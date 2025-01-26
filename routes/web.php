@@ -59,6 +59,7 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/teacher/courses/detail/student/{slug}/show', [GuruController::class, 'showStudent'])->name('show.siswa');
     Route::get('/teacher/courses/detail/student/{slug}', [GuruController::class, 'createStudent'])->name('siswa.courses');
     Route::post('/teacher/courses/detail/student/{id}/store', [GuruController::class, 'storeStudent'])->name('store.siswa');
+    Route::delete('/teacher/courses/detail/student/{id}', [GuruController::class, 'deleteStudent'])->name('delete.siswa');
 });
 
 require __DIR__.'/auth.php';

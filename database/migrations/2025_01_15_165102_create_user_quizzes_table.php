@@ -17,10 +17,10 @@ return new class extends Migration
             $table->foreign('quiz_id')->references('id')->on('quizzes');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('correct')->nullable();
-            $table->string('score')->nullable();
-            $table->boolean('status')->default(0);
-            $table->timestamps();
+            $table->integer('correct')->nullable();
+            $table->integer('score')->nullable();
+            $table->enum('status', ['pending', 'failed', 'passed'])->default('pending');
+            $table->timestamps();   
         });
     }
 

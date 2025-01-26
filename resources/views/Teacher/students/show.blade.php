@@ -83,9 +83,21 @@
                                                 <p class="text-gray-500 text-sm">{{ $student->email }}</p>
                                             </div>
                                             <div class="flex space-x-2">
-                                                {{-- <span class="{{ $course->userQuiz->status ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800' }} px-2 py-1 rounded-full">
-                                                    {{ $course->userQuiz->status ? 'Not Started' : 'Passed' }}
-                                                </span> --}}
+                                                @if($student->userQuiz)
+                                                    <span class="px-2 py-1 rounded-full {{ $student->userQuiz->status == 'failed' ? 'bg-red-200 text-red-800' : 'bg-green-200 text-green-800' }}">
+                                                        {{ ucfirst($student->userQuiz->status) }}
+                                                    </span>
+                                                @else
+                                                    <span class="px-2 py-2 rounded-full bg-yellow-200 text-yellow-800">
+                                                        Not Started
+                                                    </span>
+                                                @endif
+                                                <form action="{{ route('delete.siswa', $course->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus siswa ini?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="email" value="{{ $student->email }}">
+                                                    <button type="submit" class="text-white bg-red-500 px-3 py-2 rounded-full"><i class="bi bi-trash"></i></button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

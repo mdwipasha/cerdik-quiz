@@ -59,6 +59,7 @@
                                 <th class="border border-gray-300 px-4 py-2 text-left">No</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Student Name</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Score</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">Correct</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Status</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Date</th>
                             </tr>
@@ -69,14 +70,15 @@
                                     <td class="border border-gray-300 px-4 py-2">{{ $key + 1 }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $result->user->name }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $result->score }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $result->correct }} OF {{ $quiz->question->count() }}</td>
                                     <td class="border border-gray-300 px-4 py-2">
-                                        @if ($result->status == 0)
-                                            <span class="px-2 py-1 text-sm font-medium rounded-lg bg-yellow-100 text-yellow-600">
-                                                Pending
+                                        @if ($result->status == 'failed')
+                                            <span class="px-2 py-1 text-sm font-medium rounded-lg bg-red-100 text-red-600">
+                                                {{ ucfirst($result->status) }}
                                             </span>
                                         @else
                                             <span class="px-2 py-1 text-sm font-medium rounded-lg bg-green-100 text-green-600">
-                                                Complete
+                                                {{ ucfirst($result->status) }}
                                             </span>
                                         @endif
                                     </td>
