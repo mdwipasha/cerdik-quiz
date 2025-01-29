@@ -1,8 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Detail Quiz') }}
-        </h2>
+        <nav class="text-sm font-semibold text-gray-500">
+            <a href="{{ route('siswa.dashboard') }}" class="hover:text-gray-700">DASHBOARD</a> 
+            <span class="mx-2">/</span>
+            <span class="text-black">DETAIL QUIZ</span>
+        </nav>
     </x-slot>
 
     <div class="py-12">
@@ -24,15 +26,10 @@
                     <!-- Quiz Information -->
                     <div class="mb-6">
                         <p class="text-sm text-gray-500">
-                            <strong>Jumlah Pertanyaan:</strong> {{ $course->question->count() }} Pertanyaan
+                            <strong>By :</strong> {{ $course->user->name }}
                         </p>
                         <p class="text-sm text-gray-500">
-                            @if ($course->is_private == 0)
-                                <strong>Tipe Quiz:</strong> PRIVATE
-                            @endif
-                            @if ($course->is_private == 1)                     
-                                <strong>Tipe Quiz:</strong> PUBLIC
-                            @endif
+                            <strong>Jumlah Pertanyaan:</strong> {{ $course->question->count() }} Pertanyaan
                         </p>
                     </div>
 

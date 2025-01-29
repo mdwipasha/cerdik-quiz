@@ -25,7 +25,7 @@
 <body class="bg-gray-100">
 
 <!-- Navbar -->
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
 
@@ -37,29 +37,25 @@
                     <span class="text-lg font-bold text-gray-800">{{ $quiz->title }}</span>
                 </div>
 
-                <!-- Profile Dropdown -->
-                <div class="hidden sm:flex sm:items-center">
-                    <button class="inline-flex items-center px-3 py-2 border border-transparent text-base leading-4 font-bold rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                        <div class="text-black">{{ Auth::user()->name }}</div>
+                <!-- Profile -->
+                <div class="inline-flex items-center px-3 py-2 border border-transparent text-base leading-4 font-bold rounded-md text-gray-500 bg-white focus:outline-none transition ease-in-out duration-150">
+                    <div class="text-black">{{ Auth::user()->name }}</div>
                         <div class="ms-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="orange" class="bi bi-person-circle" viewBox="0 0 16 16">
                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
                             </svg>
                         </div>
-                    </button>
                 </div>
 
-            </div>
         </div>
     </div>
-
 </nav>
     <!-- Quiz Form -->
     <div class="flex items-center justify-center min-h-screen">
         <div class="bg-white rounded-lg shadow-lg p-5 max-w-2xl w-full">
             <header class="text-center mb-10">
-                <h1 class="text-4xl font-bold">{{ $currentQuestion->question }}</h1>
+                <h1 class="text-4xl font-bold">{{ $currentQuestion->question }} ?</h1>
                 <p>Question {{ $index }} of {{ $questions->count() }}</p>
             </header>
             <form action="{{ route('quiz.answer', $quiz->slug) }}" method="POST" class="space-y-6">

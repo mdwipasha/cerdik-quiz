@@ -37,7 +37,7 @@
             <!-- Section: Your Quiz -->
             <div class="flex justify-between mt-6 items-center">
                 <h3 class="text-2xl font-bold">Your Quizzes</h3>
-                <a href="{{ route('guru.courses') }}" class="text-blue-600 hover:underline">Show More</a>
+                <a href="{{ route('guru.quiz') }}" class="text-blue-600 hover:underline">Show More</a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">

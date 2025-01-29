@@ -4,24 +4,24 @@
         <nav class="text-sm font-semibold text-gray-500">
             <a href="{{ route('guru.dashboard') }}" class="hover:text-gray-700">HOME</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('guru.courses') }}" class="hover:text-gray-700">MANAGE COURSE</a>
+            <a href="{{ route('guru.quiz') }}" class="hover:text-gray-700">MANAGE QUIZ</a>
             <span class="mx-2">/</span>
-            <span class="text-black">COURSE DETAIL</span>
+            <span class="text-black">QUIZ DETAIL</span>
         </nav>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-md rounded-lg p-6">
-                <!-- Course Card -->
+                <!-- Quiz Card -->
                 <div class="bg-gray-50 p-6 rounded-lg shadow-md">
                     <div class="flex items-center">
-                        <!-- Course Icon -->
+                        <!-- Quiz Icon -->
                         <div class="w-20 h-20 bg-orange-400 rounded-full flex items-center justify-center">
                             <img src="{{ Storage::url($course->image) }}" alt="Icon" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
                         </div>
 
-                        <!-- Course Info -->
+                        <!-- Quiz Info -->
                         <div class="ml-4 flex-grow mb-5">
                             <h2 class="text-xl font-bold text-black">{{ $course->title }}</h2>
                             <div class="text-sm text-gray-500 flex items-center mt-1">

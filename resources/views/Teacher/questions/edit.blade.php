@@ -4,7 +4,7 @@
         <nav class="text-sm font-semibold text-gray-500">
             <a href="{{ route('guru.dashboard') }}" class="hover:text-gray-700">HOME</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('guru.courses') }}" class="hover:text-gray-700">MANAGE COURSE</a>
+            <a href="{{ route('guru.quiz') }}" class="hover:text-gray-700">MANAGE QUIZ</a>
             <span class="mx-2">/</span>
             {{-- <a href="{{ route('detail.courses', ['slug' => $course->slug]) }}" class="hover:text-gray-700">DETAIL QUIZ</a>
             <span class="mx-2">/</span> --}}

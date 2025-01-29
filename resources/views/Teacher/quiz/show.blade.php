@@ -4,7 +4,7 @@
         <nav class="text-sm font-semibold text-gray-500">
             <a href="{{ route('guru.dashboard') }}" class="hover:text-gray-700">DASHBOARD</a>
             <span class="mx-2">/</span>
-            <span class="text-black">MANAGE COURSE</span>
+            <span class="text-black">MANAGE QUIZ</span>
         </nav>
     </x-slot>
 
@@ -16,10 +16,10 @@
                     <!-- Header Section -->
                     <div class="flex justify-between items-center mb-6">
                         <div>
-                            <h3 class="text-2xl font-bold">Manage Course</h3>
+                            <h3 class="text-2xl font-bold">Manage Quiz</h3>
                         </div>
                         <button class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg">
-                            <a href="{{ route('create.courses') }}">Add New Course</a>
+                            <a href="{{ route('create.courses') }}">Add New Quiz</a>
                         </button>
                     </div>
 
@@ -43,7 +43,7 @@
                         <table class="min-w-full border-collapse">
                             <thead>
                                 <tr class="bg-gray-100 dark:bg-gray-700">
-                                    <th class="py-3 px-6 text-left font-medium text-gray-700 dark:text-gray-300">Course</th>
+                                    <th class="py-3 px-6 text-left font-medium text-gray-700 dark:text-gray-300">Quiz</th>
                                     <th class="py-3 px-6 text-left font-medium text-gray-700 dark:text-gray-300">Date Created</th>
                                     <th class="py-3 px-6 text-left font-medium text-gray-700 dark:text-gray-300">Access Type</th>
                                     <th class="py-3 px-6 text-left font-medium text-gray-700 dark:text-gray-300">Action</th>

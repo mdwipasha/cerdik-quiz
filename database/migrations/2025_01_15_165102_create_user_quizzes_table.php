@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('correct')->nullable();
             $table->integer('score')->nullable();
-            $table->enum('status', ['pending', 'failed', 'passed'])->default('pending');
+            $table->enum('status', ['Pending', 'Failed', 'Passed'])->default('Pending');
             $table->timestamps();   
         });
     }

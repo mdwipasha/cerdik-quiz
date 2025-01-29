@@ -4,7 +4,7 @@
         <nav class="text-sm font-semibold text-gray-500">
             <a href="{{ route('guru.dashboard') }}" class="hover:text-gray-700">HOME</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('guru.courses') }}" class="hover:text-gray-700">MANAGE COURSE</a>
+            <a href="{{ route('guru.quiz') }}" class="hover:text-gray-700">MANAGE QUIZ</a>
             <span class="mx-2">/</span>
             <span class="text-black">RESULT QUIZ</span>
         </nav>
@@ -16,7 +16,7 @@
                 <div class="bg-gray-50 p-6 rounded-lg shadow-md">
                 <div class="flex justify-between">
                     <div class="flex items-center">
-                        <!-- Course Icon -->
+                        <!-- Quiz Icon -->
                         <div class="w-20 h-20 bg-orange-400 rounded-full flex items-center justify-center">
                             <img src="{{ Storage::url($quiz->image) }}" alt="Icon" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
                         </div>
@@ -95,7 +95,7 @@
                     </table>
                 </div>
                 <div>
-                    <a href="{{ route('guru.courses') }}" class="underline text-orange-500"> <- Back</a>
+                    <a href="{{ route('guru.quiz') }}" class="underline text-orange-500"> <- Back</a>
                 </div>
             </div>
         </div>

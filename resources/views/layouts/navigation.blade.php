@@ -13,21 +13,22 @@
                     </div>
                 <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('siswa.dashboard')" :active="request()->routeIs('siswa.dashboard')">
+                        <x-nav-link :href="route('siswa.dashboard')" :active="request()->routeIs('siswa.dashboard') || request()->routeIs('siswa.detail.quiz')">
                             <i class="bi bi-house me-1 text-lg"></i> {{ __('Dashboard') }}
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('siswa.course')" :active="request()->routeIs('siswa.course')">
-                            <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Courses') }}
+                        <x-nav-link :href="route('quiz.siswa')" :active="request()->routeIs('quiz.siswa')">
+                            <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Quizzes') }}
                         </x-nav-link>                        
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('quiz.finished')" :active="request()->routeIs('quiz.finished')">
+                        <x-nav-link :href="route('quiz.finished')" :active="request()->routeIs('quiz.finished') || request()->routeIs('quiz.result')">
                             <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('Results') }}
                         </x-nav-link>                        
                     </div>
                 @endif
+
                 @if (Auth::user()->role_id == 2)
                  <!-- Logo -->
                     <div class="shrink-0 flex items-center">
@@ -42,8 +43,8 @@
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('guru.courses')" :active="request()->routeIs('guru.courses') || request()->routeIs('edit.quiz') || request()->routeIs('detail.courses') || request()->routeIs('question.courses') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('siswa.courses') || request()->routeIs('result.courses')">
-                            <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Courses') }}
+                        <x-nav-link :href="route('guru.quiz')" :active="request()->routeIs('guru.quiz') || request()->routeIs('edit.quiz') || request()->routeIs('detail.courses') || request()->routeIs('question.courses') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('siswa.courses') || request()->routeIs('result.courses')">
+                            <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Quizzes') }}
                         </x-nav-link>                        
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -99,25 +100,34 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+            {{-- SISWA --}}
+
             @if (Auth::user()->role_id == 1)
-            <x-responsive-nav-link :href="route('siswa.dashboard')" :active="request()->routeIs('siswa.dashboard')">
+            <x-responsive-nav-link :href="route('siswa.dashboard')" :active="request()->routeIs('siswa.dashboard') || request()->routeIs('siswa.detail.quiz')">
                 <i class="bi bi-house me-1 text-lg"></i> {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('siswa.course')" :active="request()->routeIs('siswa.course')">
-                <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Courses') }}
+            <x-responsive-nav-link :href="route('quiz.siswa')" :active="request()->routeIs('quiz.siswa')">
+                <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Quizzes') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('quiz.finished')" :active="request()->routeIs('quiz.finished') || request()->routeIs('quiz.result')">
+                <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('Results') }}
             </x-responsive-nav-link>
             @endif
+
+            {{-- GURU --}}
+
             @if (Auth::user()->role_id == 2)
             <x-responsive-nav-link :href="route('guru.dashboard')" :active="request()->routeIs('guru.dashboard')">
                 <i class="bi bi-house me-1 text-lg"></i> {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('guru.courses')" :active="request()->routeIs('guru.courses') || request()->routeIs('edit.quiz') || request()->routeIs('detail.courses') || request()->routeIs('question.courses') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('siswa.courses') || request()->routeIs('result.courses')">
+            <x-responsive-nav-link :href="route('guru.quiz')" :active="request()->routeIs('guru.quiz') || request()->routeIs('edit.quiz') || request()->routeIs('detail.courses') || request()->routeIs('question.courses') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('siswa.courses') || request()->routeIs('result.courses')">
                 <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Courses') }}
             </x-responsive-nav-link>      
             <x-responsive-nav-link :href="route('create.courses')" :active="request()->routeIs('create.courses')">
                 <i class="bi bi-journal-plus me-1 text-lg"></i> {{ __('New Courses') }}
             </x-responsive-nav-link>
             @endif
+
         </div>
 
         <!-- Responsive Settings Options -->

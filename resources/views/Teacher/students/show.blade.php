@@ -4,9 +4,9 @@
         <nav class="text-sm font-semibold text-gray-500">
             <a href="{{ route('guru.dashboard') }}" class="hover:text-gray-700">HOME</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('guru.courses') }}" class="hover:text-gray-700">MANAGE COURSE</a>
+            <a href="{{ route('guru.quiz') }}" class="hover:text-gray-700">MANAGE QUIZ</a>
             <span class="mx-2">/</span>
-            <span class="text-black">COURSE DETAIL</span>
+            <span class="text-black">QUIZ DETAIL</span>
         </nav>
     </x-slot>
 
@@ -14,15 +14,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <!-- Course Card -->
+                    <!-- Quiz Card -->
                     <div class="bg-gray-50 p-6 rounded-lg shadow-md">
                         <div class="flex items-center">
-                            <!-- Course Icon -->
+                            <!-- Quiz Icon -->
                             <div class="w-20 h-20 bg-orange-400 rounded-full flex items-center justify-center">
                                 <img src="{{ Storage::url($course->image) }}" alt="Icon" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
                             </div>
 
-                            <!-- Course Info -->
+                            <!-- Quiz Info -->
                             <div class="ml-4 flex-grow">
                                 <h2 class="text-xl font-bold text-black">{{ $course->title }}</h2>
                                 <div class="text-sm text-gray-500 flex items-center mt-1">
@@ -36,17 +36,16 @@
                                 @endif
                                 </div>
                                 @if($course->is_private == 0)
-                                <span class="bg-red-100 text-red-600 px-3 py-1 rounded-md text-sm">PRIVATE</span>
+                                    <span class="bg-red-100 text-red-600 px-3 py-1 rounded-md text-sm">PRIVATE</span>
                                 @endif
                                 @if($course->is_private == 1)
-                                <span class="bg-green-100 text-green-600 px-3 py-1 rounded-md text-sm">PUBLIC</span>
+                                    <span class="bg-green-100 text-green-600 px-3 py-1 rounded-md text-sm">PUBLIC</span>
                                 @endif
                             </div>
                         </div>
 
                         <!-- Divider -->
                         <hr class="my-6">
-
                         @if(session('success'))
                             <div id="alert-success" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-5" role="alert">
                                 <span class="block sm:inline">{{ session('success') }}</span>

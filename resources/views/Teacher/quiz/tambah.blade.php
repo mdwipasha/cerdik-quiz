@@ -4,9 +4,9 @@
         <nav class="text-sm font-semibold text-gray-500">
             <a href="{{ route('guru.dashboard') }}" class="hover:text-gray-700">DASHBOARD</a> 
             <span class="mx-2">/</span>
-            <a href="{{ route('guru.courses') }}" class="hover:text-gray-700">MANAGE COURSE</a>
+            <a href="{{ route('guru.quiz') }}" class="hover:text-gray-700">MANAGE QUIZ</a>
             <span class="mx-2">/</span>
-            <span class="text-black">NEW COURSE</span>
+            <span class="text-black">CREATE QUIZ</span>
         </nav>
     </x-slot>
 
@@ -14,15 +14,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <!-- New Course Form -->
-                        <h1 class="text-2xl font-bold mb-5">NEW COURSE</h1>        
+                    <!-- New Quiz Form -->
+                        <h1 class="text-2xl font-bold mb-5">NEW QUIZ</h1>        
 
                         <form id="course-form" action="{{ route('store.courses') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <!-- Icon Upload Section -->
                             <div class="flex items-center mb-6">
                                 <div id="icon-preview" class="w-24 h-24 border-dashed border-2 border-gray-400 flex items-center justify-center rounded-full overflow-hidden">
-                                    <img id="icon-image" src="" alt="ICON COURSE" class="hidden w-full h-full object-cover">
+                                    <img id="icon-image" src="" alt="ICON QUIZ" class="hidden w-full h-full object-cover">
                                 </div>
                                 <label for="icon" class="ml-4 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
                                     ADD ICON
@@ -30,10 +30,10 @@
                                 </label>
                             </div>
         
-                            <!-- Course Name -->
+                            <!-- Quiz Name -->
                             <div class="mb-4">
                                 <label for="name" class="block text-black-900 font-bold mb-2">NAME</label>
-                                <input type="text" name="title" id="name" class="w-full border border-gray-300 rounded-md p-2" placeholder="Write your course name" required>
+                                <input type="text" name="title" id="name" class="w-full border border-gray-300 rounded-md p-2" placeholder="Write your quiz name" required>
                                 @error('title')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
@@ -41,7 +41,7 @@
 
                             <div class="mb-4">
                                 <label for="textarea" class="block text-black-900 font-bold mb-2">DESCRIPTION</label>
-                                <textarea name="description" id="textarea" cols="30" rows="10" class="w-full border border-gray-300 rounded-md p-2" placeholder="Write description for your course" required></textarea>
+                                <textarea name="description" id="textarea" cols="30" rows="10" class="w-full border border-gray-300 rounded-md p-2" placeholder="Write description for your Quiz" required></textarea>
                             </div>
         
                             <!-- Access Type -->
@@ -56,7 +56,7 @@
         
                             <!-- Submit Button -->
                             <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded">
-                                SAVE COURSE
+                                SAVE QUIZ
                             </button>
                         </form>
                 </div>

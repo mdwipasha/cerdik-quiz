@@ -1,10 +1,11 @@
 <x-app-layout>
+    
     <x-slot name="header">
         <!-- Breadcrumb Navigation -->
         <nav class="text-sm font-semibold text-gray-500">
             <a href="{{ route('siswa.dashboard') }}" class="hover:text-gray-700">DASHBOARD</a> 
             <span class="mx-2">/</span>
-            <span class="text-black">MY COURSES</span>
+            <span class="text-black">MY QUIZZES</span>
         </nav>
     </x-slot>
 
@@ -16,22 +17,22 @@
                     <!-- Header Section -->
                     <div class="flex justify-between items-center mb-6">
                         <div>
-                            <h3 class="text-2xl font-bold">My Courses</h3>
+                            <h3 class="text-2xl font-bold">My Quizzes</h3>
                         </div>
                     </div>
     
                     @if ($errors->has('question'))
-                    <div class="alert alert-danger">
-                        {{ $errors->first('question') }}
-                    </div>
-                @endif
+                        <div class="alert alert-danger">
+                            {{ $errors->first('question') }}
+                        </div>
+                    @endif
 
                     <!-- Table Section -->
                     <div class="overflow-x-auto">
                         <table class="min-w-full border-collapse">
                             <thead>
                                 <tr class="bg-gray-100 dark:bg-gray-700">
-                                    <th class="py-3 px-6 text-left font-medium text-gray-700 dark:text-gray-300">Course</th>
+                                    <th class="py-3 px-6 text-left font-medium text-gray-700 dark:text-gray-300">Quizzes</th>
                                     <th class="py-3 px-6 text-left font-medium text-gray-700 dark:text-gray-300">Date Created</th>
                                     <th class="py-3 px-6 text-left font-medium text-gray-700 dark:text-gray-300">Category</th>
                                     <th class="py-3 px-6 text-left font-medium text-gray-700 dark:text-gray-300">Action</th>

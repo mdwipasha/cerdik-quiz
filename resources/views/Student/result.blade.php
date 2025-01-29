@@ -2,11 +2,9 @@
     <x-slot name="header">
         <!-- Breadcrumb Navigation -->
         <nav class="text-sm font-semibold text-gray-500">
-            <a href="{{ route('siswa.dashboard') }}" class="hover:text-gray-700">Home</a>
+            <a href="{{ route('siswa.dashboard') }}" class="hover:text-gray-700">DASHBOARD</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('siswa.course') }}" class="hover:text-gray-700">My Courses</a>
-            <span class="mx-2">/</span>
-            <span class="text-black">Rapport Details</span>
+            <span class="text-black">RESULT DETAILS</span>
         </nav>
     </x-slot>
 
@@ -40,10 +38,12 @@
                     <div class="mt-4 space-y-4">
                         @foreach($results as $result)
                         <div class="p-4 border rounded-lg bg-gray-50">
-                            <p class="text-gray-900 font-semibold">{{ $result['question'] }}</p>
+                            <p class="text-gray-900 font-semibold">{{ $result['question'] }} ?</p>
                             <div class="flex items-center justify-between mt-2 text-sm">
-                                <p class="text-gray-700">Your Answer: <span class="font-semibold">({{ $result['user_answer'] }})</span></p>
-                                <p class="text-gray-700">Correct Answer: <span class="font-semibold">({{ $result['correct_answer'] }})</span></p>
+                                <div>
+                                    <p class="text-gray-700">Your Answer: <span class="font-semibold">({{ $result['user_answer'] }})</span></p>
+                                    <p class="text-gray-700">Correct Answer: <span class="font-semibold">({{ $result['correct_answer'] }})</span></p>
+                                </div>
                                 <span class="px-3 py-1 rounded-full text-xs font-bold {{ $result['is_correct'] ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
                                     {{ $result['is_correct'] ? 'Correct' : 'Incorrect' }}
                                 </span>
@@ -56,9 +56,6 @@
                     <div class="mt-8 flex justify-between">
                         <button class="bg-gray-800 text-white text-sm font-semibold px-6 py-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600">
                             Request Retake
-                        </button>
-                        <button class="bg-orange-600 text-white text-sm font-semibold px-6 py-2 rounded-md hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-400">
-                            Contact Teacher
                         </button>
                     </div>
                 </div>

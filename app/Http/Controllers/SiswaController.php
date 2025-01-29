@@ -15,11 +15,11 @@ class SiswaController extends Controller
     }
 
     public function detail($slug) {
-        $course = Quiz::where('slug', $slug)->with('question')->firstOrFail();
+        $course = Quiz::where('slug', $slug)->with(['question','user'])->firstOrFail();
         return view('Student.detail', compact('course'));
     }
 
-    public function courses()
+    public function quiz()
     {
         $userEmail = auth()->user()->email;
 
@@ -28,7 +28,7 @@ class SiswaController extends Controller
                     ->where('user_emails', 'LIKE', "%$userEmail%")
                     ->get();
 
-        return view('Student.courses', compact('courses'));
+        return view('Student.quizzes', compact('courses'));
     }
 
     public function question($slug, $index) {
@@ -51,7 +51,7 @@ class SiswaController extends Controller
 
         $currentQuestion = $questions[$index - 1];
 
-        return view('Student.testCourses', compact('quiz', 'currentQuestion', 'index', 'questions'));
+        return view('Student.startQuiz', compact('quiz', 'currentQuestion', 'index', 'questions'));
     }
 
     public function answer(Request $request, $slug)
@@ -74,58 +74,69 @@ class SiswaController extends Controller
     {
         $quiz = Quiz::where('slug', $slug)->with('question.answer')->firstOrFail();
         $userAnswers = session()->get("quiz_{$quiz->id}_answers", []);
-        $correct = 0;
+
+        // Cek apakah hasil sudah ada untuk user ini
+        $existingResult = UserQuiz::where('quiz_id', $quiz->id)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        // Jika sudah ada, gunakan nilai yang sudah disimpan
+        if ($existingResult) {
+            $score = $existingResult->score;
+            $correct = $existingResult->correct;
+            $status = $existingResult->status;
+        } else {
+            $correct = 0;
+            $totalQuestions = $quiz->question->count();
+            $scorePerQuestion = 100 / $totalQuestions;
+
+            foreach ($quiz->question as $question) {
+                $correctAnswer = $question->answer->where('is_correct', true)->first();
+                $userAnswer = $userAnswers[$question->id] ?? null;
+                $isCorrect = $userAnswer && $userAnswer == $correctAnswer->id;
+
+                if ($isCorrect) {
+                    $correct++;
+                }
+            }
+
+            $score = $correct * $scorePerQuestion;
+            $status = $score >= 80 ? 'Passed' : 'Failed';
+
+            // Simpan hasil ke database jika belum ada
+            UserQuiz::create([
+                'quiz_id' => $quiz->id,
+                'user_id' => auth()->id(),
+                'correct' => $correct,
+                'score' => $score,
+                'status' => $status,
+            ]);
+
+            session()->forget("quiz_{$quiz->id}_answers");
+        }
+
+        // Buat ulang array results untuk tampilan
         $results = [];
-    
-        // Hitung skor per pertanyaan
-        $totalQuestions = $quiz->question->count();
-        $scorePerQuestion = 100 / $totalQuestions; // Skor maksimum 100
-    
-        // Loop melalui setiap pertanyaan untuk mengevaluasi jawaban
         foreach ($quiz->question as $question) {
             $correctAnswer = $question->answer->where('is_correct', true)->first();
             $userAnswer = $userAnswers[$question->id] ?? null;
-            $isCorrect = $userAnswer && $userAnswer == $correctAnswer->id;
-    
-            // Tambahkan ke array hasil
+
             $results[] = [
                 'question' => $question->question,
                 'user_answer' => $question->answer->find($userAnswer)->answer ?? 'No Answer',
                 'correct_answer' => $correctAnswer->answer,
-                'is_correct' => $isCorrect,
+                'is_correct' => $userAnswer && $userAnswer == $correctAnswer->id,
             ];
-    
-            if ($isCorrect) {
-                $correct++;
-            }
         }
-    
-        // Hitung skor total
-        $score = $correct * $scorePerQuestion;
-    
-        // Tentukan apakah siswa lulus atau tidak
-        $status = $score >= 80 ? 'Passed' : 'Not Passed';
-    
-        // Simpan hasil ke database
-        UserQuiz::create([
-            'quiz_id' => $quiz->id,
-            'user_id' => auth()->id(),
-            'correct' => $correct,
-            'score' => $score,
-            'status' => 1,
-        ]);
-    
-        // Hapus sesi setelah selesai
-        session()->forget("quiz_{$quiz->id}_answers");
-    
+
         return view('Student.result', compact('quiz', 'results', 'correct', 'score', 'status'));
     }
-    
-    
 
     public function finished() {
+        // Ambil kuis berdasarkan slug
+        $quiz = Quiz::with('question')->firstOrFail();
         $results = auth()->user()->userQuiz()->with('quiz')->get();
-        return view('Student.finished', compact('results'));
+        return view('Student.finished', compact('results','quiz'));
     }
 
 }
