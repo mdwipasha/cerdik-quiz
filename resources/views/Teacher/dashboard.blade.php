@@ -45,7 +45,7 @@
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-md rounded-lg">
                         <div class="p-6">
                             <div class="flex items-center gap-4">
-                                <img src="{{ $quiz->image ? asset('storage/' . $quiz->image) : 'https://via.placeholder.com/100' }}" 
+                                <img src="{{ $quiz->image ? Storage::url($quiz->image) : asset('assets/img/no-image.jpg') }}" 
                                     alt="Quiz Icon" class="w-16 h-16 object-cover rounded-full">
                                 <div>
                                     <h4 class="text-xl font-bold uppercase mb-2">{{ $quiz->title }}</h4>

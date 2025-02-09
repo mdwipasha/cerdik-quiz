@@ -13,18 +13,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-md rounded-lg p-6">
-                @if ($errors->has('emails'))
-                    <div class="alert alert-danger">
-                        {{ $errors->first('emails') }}
-                    </div>
-                @endif
-
                 <!-- Quiz Card -->
                 <div class="bg-gray-50 p-6 rounded-lg shadow-md">
                     <div class="flex items-center">
                         <!-- Quiz Icon -->
                         <div class="w-20 h-20 bg-orange-400 rounded-full flex items-center justify-center">
-                            <img src="{{ Storage::url($course->image) }}" alt="Icon" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
+                            <img src="{{ $course->image ? Storage::url($course->image) : asset('assets/img/no-image.jpg') }}" alt="Icon" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
                         </div>
 
                         <!-- Quiz Info -->
@@ -61,10 +55,13 @@
                             </div>
                             <input type="email" name="emails[]" id="email" placeholder="Write Student Email Addres"
                                 class="w-full pl-10 py-3 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500">
-                            @error('emails.*')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
                         </div>
+                            @if ($errors->has('emails'))
+                                <p class="text-red-500 text-sm">{{ $errors->first('emails') }}</p>
+                            @endif
+                            @error('emails.*')
+                                <p class="text-red-500 text-sm">{{ $message }}</p>
+                            @enderror
                         <!-- Save Button -->
                         <div class="mt-6">
                             <button type="submit"

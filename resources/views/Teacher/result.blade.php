@@ -18,7 +18,7 @@
                     <div class="flex items-center">
                         <!-- Quiz Icon -->
                         <div class="w-20 h-20 bg-orange-400 rounded-full flex items-center justify-center">
-                            <img src="{{ Storage::url($quiz->image) }}" alt="Icon" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
+                            <img src="{{ $quiz->image ? Storage::url($quiz->image) : asset('assets/img/no-image.jpg') }}" alt="Icon" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
                         </div>
 
                         <!-- quiz Info -->
@@ -42,13 +42,13 @@
                             @endif
                         </div>
                     </div>
-                    <div>
+                    {{-- <div>
                         <form action="{{ route('delete.question', $quiz->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-white bg-red-500 px-5 py-2 rounded-lg"><i class="bi bi-trash"></i></button>
                         </form>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="p-6 overflow-x-auto">
                     {{-- <h1 class="text-xl font-semibold text-gray-700 mb-4">Quiz Results for: {{ $quiz->title }}</h1> --}}
@@ -86,7 +86,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="border border-gray-300 px-4 py-2 text-center text-gray-500">
+                                    <td colspan="6" class="border border-gray-300 px-4 py-2 text-center text-gray-500">
                                         No quiz results found for this quiz.
                                     </td>
                                 </tr>

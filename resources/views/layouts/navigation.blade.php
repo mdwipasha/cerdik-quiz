@@ -8,12 +8,12 @@
                 <!-- Logo -->
                     <div class="shrink-0 flex items-center">
                         <a href="{{ route('siswa.dashboard') }}">
-                            <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                            <x-application-logo class="block" />
                         </a>
                     </div>
                 <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('siswa.dashboard')" :active="request()->routeIs('siswa.dashboard') || request()->routeIs('siswa.detail.quiz')">
+                        <x-nav-link :href="route('siswa.dashboard')" :active="request()->routeIs('siswa.dashboard') || request()->routeIs('siswa.detail.quiz') || request()->routeIs('quiz.leaderboard')">
                             <i class="bi bi-house me-1 text-lg"></i> {{ __('Dashboard') }}
                         </x-nav-link>
                     </div>
@@ -43,13 +43,13 @@
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('guru.quiz')" :active="request()->routeIs('guru.quiz') || request()->routeIs('edit.quiz') || request()->routeIs('detail.courses') || request()->routeIs('question.courses') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('siswa.courses') || request()->routeIs('result.courses')">
+                        <x-nav-link :href="route('guru.quiz')" :active="request()->routeIs('guru.quiz') || request()->routeIs('edit.quiz') || request()->routeIs('detail.quiz') || request()->routeIs('create.question') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('create.siswa') || request()->routeIs('quiz.result')">
                             <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Quizzes') }}
                         </x-nav-link>                        
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('create.courses')" :active="request()->routeIs('create.courses')">
-                            <i class="bi bi-journal-plus me-1 text-lg"></i> {{ __('New Courses') }}
+                        <x-nav-link :href="route('create.quiz')" :active="request()->routeIs('create.quiz')">
+                            <i class="bi bi-journal-plus me-1 text-lg"></i> {{ __('New Quiz') }}
                         </x-nav-link>
                     </div>
                 @endif
@@ -103,7 +103,7 @@
             {{-- SISWA --}}
 
             @if (Auth::user()->role_id == 1)
-            <x-responsive-nav-link :href="route('siswa.dashboard')" :active="request()->routeIs('siswa.dashboard') || request()->routeIs('siswa.detail.quiz')">
+            <x-responsive-nav-link :href="route('siswa.dashboard')" :active="request()->routeIs('siswa.dashboard') || request()->routeIs('siswa.detail.quiz') || request()->routeIs('quiz.leaderboard')">
                 <i class="bi bi-house me-1 text-lg"></i> {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('quiz.siswa')" :active="request()->routeIs('quiz.siswa')">
@@ -120,11 +120,11 @@
             <x-responsive-nav-link :href="route('guru.dashboard')" :active="request()->routeIs('guru.dashboard')">
                 <i class="bi bi-house me-1 text-lg"></i> {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('guru.quiz')" :active="request()->routeIs('guru.quiz') || request()->routeIs('edit.quiz') || request()->routeIs('detail.courses') || request()->routeIs('question.courses') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('siswa.courses') || request()->routeIs('result.courses')">
-                <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Courses') }}
+            <x-responsive-nav-link :href="route('guru.quiz')" :active="request()->routeIs('guru.quiz') || request()->routeIs('edit.quiz') || request()->routeIs('detail.quiz') || request()->routeIs('create.question') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('create.siswa') || request()->routeIs('quiz.result')">
+                <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Quizzes') }}
             </x-responsive-nav-link>      
-            <x-responsive-nav-link :href="route('create.courses')" :active="request()->routeIs('create.courses')">
-                <i class="bi bi-journal-plus me-1 text-lg"></i> {{ __('New Courses') }}
+            <x-responsive-nav-link :href="route('create.quiz')" :active="request()->routeIs('create.quiz')">
+                <i class="bi bi-journal-plus me-1 text-lg"></i> {{ __('New Quiz') }}
             </x-responsive-nav-link>
             @endif
 

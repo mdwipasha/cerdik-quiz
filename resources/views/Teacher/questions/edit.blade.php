@@ -6,7 +6,7 @@
             <span class="mx-2">/</span>
             <a href="{{ route('guru.quiz') }}" class="hover:text-gray-700">MANAGE QUIZ</a>
             <span class="mx-2">/</span>
-            {{-- <a href="{{ route('detail.courses', ['slug' => $course->slug]) }}" class="hover:text-gray-700">DETAIL QUIZ</a>
+            {{-- <a href="{{ route('detail.quiz', ['slug' => $quiz->sl]) }}" class="hover:text-gray-700">DETAIL QUIZ</a>
             <span class="mx-2">/</span> --}}
             <span class="text-black">EDIT QUESTION</span>
         </nav>

@@ -19,7 +19,7 @@
                         <div class="flex items-center">
                             <!-- Quiz Icon -->
                             <div class="w-20 h-20 bg-orange-400 rounded-full flex items-center justify-center">
-                                <img src="{{ Storage::url($course->image) }}" alt="Icon" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
+                                <img src="{{ $course->image ? Storage::url($course->image) : asset('assets/img/no-image.jpg') }}" alt="Icon" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
                             </div>
 
                             <!-- Quiz Info -->
@@ -64,7 +64,7 @@
 
                         <!-- Questions Section -->
                         <div>
-                            <a href="{{ route('question.courses', ['slug' => $course->slug]) }}">
+                            <a href="{{ route('create.question', ['slug' => $course->slug]) }}">
                                 <button class="border border-dashed border-gray-400 px-4 py-3 rounded-lg w-full text-gray-600 hover:border-gray-600 hover:bg-gray-50 mb-5">
                                     <i class="bi bi-plus-circle mr-2"></i> New Question
                                 </button>

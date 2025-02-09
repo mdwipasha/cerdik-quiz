@@ -43,13 +43,13 @@ class QuizController extends Controller
 
         $slug = $request->input('slug');
 
-        return redirect()->route('detail.courses', ['slug' => $slug])
+        return redirect()->route('detail.quiz', ['slug' => $slug])
                 ->with('success', 'Question added successfully!');
     }
 
     public function editQuestion($id) {
         $question = Question::with('answer')->findOrFail($id);
-
+        
         return view('Teacher.questions.edit', compact('question'));
     }
 
@@ -83,7 +83,7 @@ class QuizController extends Controller
         }
     
         // Redirect ke halaman detail quiz berdasarkan slug
-        return redirect()->route('detail.courses', $quiz->slug)
+        return redirect()->route('detail.quiz', $quiz->slug)
                          ->with('success', 'Question updated successfully.');
     }
     

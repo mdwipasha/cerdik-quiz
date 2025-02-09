@@ -47,7 +47,7 @@
                             @foreach($courses as $course)
                                 <tr class="border-b dark:border-gray-600">
                                     <td class="py-4 px-6 flex items-center">
-                                        <img src="{{ Storage::url($course->image) }}" alt="icon" class="w-10 h-10 rounded-full mr-4">
+                                        <img src="{{ $course->image ? Storage::url($course->image) : asset('assets/img/no-image.jpg') }}" alt="icon" class="w-10 h-10 rounded-full mr-4">
                                         <div>
                                             <p class="font-semibold">{{ $course->title }}</p>
                                             <p class="text-gray-500 text-sm capitalize">{{ $course->user->name }}</p>

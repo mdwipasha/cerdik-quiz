@@ -16,7 +16,7 @@
                     <div class="flex items-center justify-between border-b pb-4">
                         <div class="flex items-center space-x-4">
                             <div class="w-16 h-16 bg-orange-400 rounded-full flex items-center justify-center overflow-hidden">
-                                <img src="{{ Storage::url($quiz->image) }}" alt="Icon {{ $quiz->title }}" class="w-full h-full object-cover">
+                                <img src="{{ $quiz->image ? Storage::url($quiz->image) : asset('assets/img/no-image.jpg') }}" alt="Icon {{ $quiz->title }}" class="w-full h-full object-cover">
                             </div>
                             <div>
                                 <h1 class="text-2xl font-bold text-gray-900">{{ $quiz->title }}</h1>
@@ -54,9 +54,8 @@
 
                     <!-- Action Buttons -->
                     <div class="mt-8 flex justify-between">
-                        <button class="bg-gray-800 text-white text-sm font-semibold px-6 py-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600">
-                            Request Retake
-                        </button>
+                        <a href="{{ route('siswa.dashboard') }}" class="bg-orange-700 text-white text-sm font-semibold px-6 py-2 rounded-md hover:bg-orange-800 focus:outline-none focus:ring-2 focus:ring-orange-600">Kembali</a>
+                        <a href="#" class="bg-gray-800 text-white text-sm font-semibold px-6 py-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600">Coba Lagi ?</a>
                     </div>
                 </div>
             </div>

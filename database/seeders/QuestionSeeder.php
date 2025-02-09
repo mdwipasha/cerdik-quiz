@@ -257,7 +257,7 @@ class QuestionSeeder extends Seeder
             ],
             [
                 'quiz_id' => 5,
-                'question' => 'Hero tank manakah yang dikenal dengan nama skill "Renner Appaty"',
+                'question' => 'Hero manakah yang dikenal dengan nama skill "Renner Appaty"',
                 'answers' => [
                     ['answer' => 'Claude', 'is_correct' => 0],
                     ['answer' => 'Beatrix', 'is_correct' => 1],
@@ -349,20 +349,10 @@ class QuestionSeeder extends Seeder
                 'quiz_id' => 7,
                 'question' => 'Apa nama tim yang berhasil menjuarai M1',
                 'answers' => [
-                    ['answer' => 'PPQ', 'is_correct' => 0],
+                    ['answer' => 'RRQ', 'is_correct' => 0],
                     ['answer' => 'EVOS', 'is_correct' => 1],
                     ['answer' => 'ONIC', 'is_correct' => 0],
                     ['answer' => 'BTR', 'is_correct' => 0],
-                ],
-            ],
-            [
-                'quiz_id' => 7,
-                'question' => 'Apa nama tim yang dikenal dengan sebutan badut m-series',
-                'answers' => [
-                    ['answer' => 'RRQ', 'is_correct' => 1],
-                    ['answer' => 'LLQ', 'is_correct' => 0],
-                    ['answer' => 'PPQ', 'is_correct' => 0],
-                    ['answer' => 'ERERQI', 'is_correct' => 0],
                 ],
             ],
             [

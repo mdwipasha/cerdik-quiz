@@ -19,6 +19,20 @@ class SiswaController extends Controller
         return view('Student.detail', compact('course'));
     }
 
+    public function leaderboard($quizId)
+    {
+        $quiz = Quiz::findOrFail($quizId);
+        
+        $leaderboard = UserQuiz::where('quiz_id', $quizId)
+            ->join('users', 'user_quizzes.user_id', '=', 'users.id')
+            ->select('users.name', 'user_quizzes.score')
+            ->orderByDesc('user_quizzes.score')
+            ->limit(10)
+            ->get();
+
+        return view('Student.leaderboard', compact('quiz', 'leaderboard'));
+    }
+
     public function quiz()
     {
         $userEmail = auth()->user()->email;
@@ -74,61 +88,50 @@ class SiswaController extends Controller
     {
         $quiz = Quiz::where('slug', $slug)->with('question.answer')->firstOrFail();
         $userAnswers = session()->get("quiz_{$quiz->id}_answers", []);
-
-        // Cek apakah hasil sudah ada untuk user ini
-        $existingResult = UserQuiz::where('quiz_id', $quiz->id)
-            ->where('user_id', auth()->id())
-            ->first();
-
-        // Jika sudah ada, gunakan nilai yang sudah disimpan
-        if ($existingResult) {
-            $score = $existingResult->score;
-            $correct = $existingResult->correct;
-            $status = $existingResult->status;
-        } else {
-            $correct = 0;
-            $totalQuestions = $quiz->question->count();
-            $scorePerQuestion = 100 / $totalQuestions;
-
-            foreach ($quiz->question as $question) {
-                $correctAnswer = $question->answer->where('is_correct', true)->first();
-                $userAnswer = $userAnswers[$question->id] ?? null;
-                $isCorrect = $userAnswer && $userAnswer == $correctAnswer->id;
-
-                if ($isCorrect) {
-                    $correct++;
-                }
-            }
-
-            $score = $correct * $scorePerQuestion;
-            $status = $score >= 80 ? 'Passed' : 'Failed';
-
-            // Simpan hasil ke database jika belum ada
-            UserQuiz::create([
-                'quiz_id' => $quiz->id,
-                'user_id' => auth()->id(),
-                'correct' => $correct,
-                'score' => $score,
-                'status' => $status,
-            ]);
-
-            session()->forget("quiz_{$quiz->id}_answers");
-        }
-
-        // Buat ulang array results untuk tampilan
+        $correct = 0;
         $results = [];
+    
+        // Hitung skor per pertanyaan
+        $totalQuestions = $quiz->question->count();
+        $scorePerQuestion = 100 / $totalQuestions; // Skor maksimum 100
+    
+        // Loop melalui setiap pertanyaan untuk mengevaluasi jawaban
         foreach ($quiz->question as $question) {
             $correctAnswer = $question->answer->where('is_correct', true)->first();
             $userAnswer = $userAnswers[$question->id] ?? null;
-
+            $isCorrect = $userAnswer && $userAnswer == $correctAnswer->id;
+    
+            // Tambahkan ke array hasil
             $results[] = [
                 'question' => $question->question,
                 'user_answer' => $question->answer->find($userAnswer)->answer ?? 'No Answer',
                 'correct_answer' => $correctAnswer->answer,
-                'is_correct' => $userAnswer && $userAnswer == $correctAnswer->id,
+                'is_correct' => $isCorrect,
             ];
+    
+            if ($isCorrect) {
+                $correct++;
+            }
         }
-
+    
+        // Hitung skor total
+        $score = $correct * $scorePerQuestion;
+    
+        // Tentukan apakah siswa lulus atau tidak
+        $status = $score >= 80 ? 'Passed' : 'Failed';
+    
+        // Simpan hasil ke database
+        UserQuiz::create([
+            'quiz_id' => $quiz->id,
+            'user_id' => auth()->id(),
+            'correct' => $correct,
+            'score' => $score,
+            'status' => $status,
+        ]);
+    
+        // Hapus sesi setelah selesai
+        session()->forget("quiz_{$quiz->id}_answers");
+    
         return view('Student.result', compact('quiz', 'results', 'correct', 'score', 'status'));
     }
 

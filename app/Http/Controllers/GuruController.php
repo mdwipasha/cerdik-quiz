@@ -54,7 +54,7 @@ class GuruController extends Controller
     public function storeQuiz(Request $request) {
         $validated = $request->validate([
             'title' => 'required|string|max:255|unique:quizzes,title',
-            'description' => 'string|max:255',
+            'description' => 'string|nullable|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_private' => 'required|boolean',
         ]);
@@ -76,7 +76,7 @@ class GuruController extends Controller
             'is_private' => $validated['is_private'],
         ]);
 
-        return redirect()->route('guru.courses')->with('success', 'Course created successfully.');
+        return redirect()->route('guru.quiz')->with('success', 'Quiz created successfully.');
     }
     
     public function editQuiz($id) {
@@ -88,7 +88,7 @@ class GuruController extends Controller
     public function updateQuiz(Request $request, $id) {
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'string',
+            'description' => 'string|nullable',
             'is_private' => 'required|boolean',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -115,7 +115,7 @@ class GuruController extends Controller
     
         $quiz->save();
     
-        return redirect()->route('guru.courses')->with('success', 'Course updated successfully.');
+        return redirect()->route('guru.quiz')->with('success', 'Quiz updated successfully.');
     }
 
     public function deleteQuiz($id) {

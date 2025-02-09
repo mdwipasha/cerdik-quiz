@@ -3,8 +3,22 @@
 <main class="container">
 </main>
 <style>
+    @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
     body {
-        background: linear-gradient(to bottom right, #ffffff, #3e8a97, #c4f0ff);
+        background: linear-gradient(90deg, #ff7f50, #ff4500, #ff6347, #ff7f50);
+        background-size: 300% 300%;
+        animation: gradientMove 3s ease infinite;
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;

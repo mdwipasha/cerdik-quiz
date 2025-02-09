@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\ChartTes;
+use App\Filament\Widgets\StatsWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -28,6 +30,8 @@ class AdminsPanelProvider extends PanelProvider
             ->id('admins')
             ->path('admins')
             ->login()
+            ->brandLogo(asset('assets/img/YU.png'))
+            ->brandLogoHeight('100px')
             ->sidebarCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Orange,
@@ -40,6 +44,8 @@ class AdminsPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
+                StatsWidget::class,
+                ChartTes::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -60,6 +66,7 @@ class AdminsPanelProvider extends PanelProvider
                 'panels::auth.login.form.after',
                 fn(): View => view('filament.login')
             )
-            ->darkMode(false);
+            ->darkMode(false)
+            ->viteTheme('resources/css/filament/admins/theme.css');
     }
 }

@@ -18,7 +18,7 @@
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="border border-gray-300 px-4 py-2 text-left">No</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Name</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">Quiz</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Score</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Correct</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Status</th>
@@ -29,16 +29,16 @@
                             @forelse ($results as $key => $result)
                                 <tr>
                                     <td class="border border-gray-300 px-4 py-2">{{ $key + 1 }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $result->user->name }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $result->quiz->title }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $result->score }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $result->correct }} OF {{ $quiz->question->count() }}</td>
                                     <td class="border border-gray-300 px-4 py-2">
-                                        @if ($result->status == 'failed')
-                                            <span class="px-2 py-1 text-sm font-medium rounded-lg bg-red-100 text-red-600">
+                                        @if ($result->status == 'Pending')
+                                            <span class="px-2 py-1 text-sm font-medium rounded-lg bg-yellow-100 text-yellow-800">
                                                 {{ ucfirst($result->status) }}
                                             </span>
                                         @else
-                                            <span class="px-2 py-1 text-sm font-medium rounded-lg bg-green-100 text-green-600">
+                                            <span class="px-2 py-1 text-sm font-medium rounded-lg {{ $result->status == 'Failed' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600' }}">
                                                 {{ ucfirst($result->status) }}
                                             </span>
                                         @endif

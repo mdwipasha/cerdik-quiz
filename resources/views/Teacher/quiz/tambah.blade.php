@@ -17,7 +17,7 @@
                     <!-- New Quiz Form -->
                         <h1 class="text-2xl font-bold mb-5">NEW QUIZ</h1>        
 
-                        <form id="course-form" action="{{ route('store.courses') }}" method="POST" enctype="multipart/form-data">
+                        <form id="course-form" action="{{ route('store.quiz') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <!-- Icon Upload Section -->
                             <div class="flex items-center mb-6">

@@ -32,7 +32,7 @@
                 <!-- Logo -->
                 <div class="flex items-center">
                     <div class="w-10 h-10 bg-orange-400 rounded-full flex items-center justify-center mr-3">
-                        <img src="{{ Storage::url($quiz->image) }}" alt="Icon Quiz" class="w-10 h-10 rounded-full">
+                        <img src="{{ $quiz->image ? Storage::url($quiz->image) : asset('assets/img/no-image.jpg') }}" alt="Icon Quiz" class="w-10 h-10 rounded-full">
                     </div>
                     <span class="text-lg font-bold text-gray-800">{{ $quiz->title }}</span>
                 </div>

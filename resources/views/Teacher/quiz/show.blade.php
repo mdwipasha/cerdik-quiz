@@ -19,7 +19,7 @@
                             <h3 class="text-2xl font-bold">Manage Quiz</h3>
                         </div>
                         <button class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg">
-                            <a href="{{ route('create.courses') }}">Add New Quiz</a>
+                            <a href="{{ route('create.quiz') }}">Add New Quiz</a>
                         </button>
                     </div>
 
@@ -53,7 +53,7 @@
                                 @foreach($courses as $course)
                                 <tr class="border-b dark:border-gray-600">
                                     <td class="py-4 px-6 flex items-center">
-                                        <img src="{{ Storage::url($course->image) }}" alt="{{ $course->title }}" class="w-10 h-10 rounded-full mr-4">
+                                        <img src="{{ $course->image ? Storage::url($course->image) : asset('assets/img/no-image.jpg') }}" alt="{{ $course->title }}" class="w-10 h-10 rounded-full mr-4">
                                         <div>
                                             <p class="font-semibold">{{ $course->title }}</p>
                                             <p class="text-gray-500 text-sm capitalize">{{ $course->user->name }}</p>
@@ -76,8 +76,8 @@
                                             x-show="open"
                                             @click.outside="open = false"
                                             class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-lg shadow-lg z-10">
-                                            <a href="{{ route('detail.courses', ['slug' => $course->slug]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Manage</a>
-                                            <a href="{{ route('result.courses', ['slug' => $course->slug]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Result</a>
+                                            <a href="{{ route('detail.quiz', ['slug' => $course->slug]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Manage</a>
+                                            <a href="{{ route('result.quiz', ['slug' => $course->slug]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Result</a>
                                             @if($course->is_private == 0)
                                             <a href="{{ route('show.siswa', ['slug' => $course->slug]) }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Add Students</a>
                                             @endif

@@ -18,6 +18,7 @@ class QuizSeeder extends Seeder
             [
                 'title'=>'Matematika Dasar',
                 'slug'=>'matematika-dasar',
+                'description'=>'Uji kemampuan dasar matematika kamu dengan berbagai soal menarik! Mulai dari penjumlahan, pengurangan, perkalian, hingga pembagian. Cocok untuk semua usia yang ingin melatih keterampilan berhitung dengan cara yang menyenangkan!',
                 'user_id'=> 3,
                 'image'=>'quiz/mtk.jpeg',
                 'is_private'=> 0,
@@ -28,6 +29,7 @@ class QuizSeeder extends Seeder
             [
                 'title'=>'Binatang dan Lingkungan',
                 'slug'=>'binatang-dan-lingkungan',
+                'description'=>'Seberapa baik kamu mengenal dunia hewan dan lingkungan di sekitar kita? Jawab pertanyaan seputar keanekaragaman hayati, habitat, dan cara menjaga kelestarian lingkungan. Tes pengetahuanmu dan jadilah sahabat bumi!',
                 'user_id'=> 3,
                 'image'=>'quiz/binatang-dan-lingkungan.jpg',
                 'is_private'=> 1,
@@ -37,6 +39,7 @@ class QuizSeeder extends Seeder
             [
                 'title' => 'Sejarah Indonesia',
                 'slug' => Str::slug('Sejarah Indonesia'),
+                'description'=>'Kembali ke masa lalu dan pelajari sejarah Indonesia dari masa kerajaan hingga era modern! Uji wawasanmu tentang peristiwa penting, tokoh nasional, dan perjuangan bangsa dalam kuis yang seru dan mendidik ini.',
                 'user_id' => 3,
                 'image' => 'quiz/sejarah-indonesia.jpg',
                 'is_private' => 1,
@@ -46,6 +49,7 @@ class QuizSeeder extends Seeder
             [
                 'title' => 'Teknologi Dan Komputer',
                 'slug' => Str::slug('Teknologi Dan Komputer'),
+                'description'=>'Dunia teknologi berkembang pesat, apakah kamu mengikutinya? Tantang dirimu dengan soal-soal seputar inovasi teknologi, perangkat keras, perangkat lunak, dan internet. Cocok untuk para pecinta teknologi!',
                 'user_id' => 3,
                 'image' => 'quiz/ilkom.jpeg',
                 'is_private' => 0,
@@ -56,6 +60,7 @@ class QuizSeeder extends Seeder
             [
                 'title' => 'Mobile Legend Hero Kuis',
                 'slug' => Str::slug('Mobile Legend Hero Kuis'),
+                'description'=>'Apakah kamu penggemar Mobile Legends? Uji pengetahuanmu tentang berbagai hero, skill, role, dan strategi permainan. Buktikan bahwa kamu adalah pemain sejati dengan menjawab semua pertanyaan dengan benar!',
                 'user_id' => 3,
                 'image' => 'quiz/mlbb.jpeg',
                 'is_private' => 0,
