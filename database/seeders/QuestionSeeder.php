@@ -50,9 +50,9 @@ class QuestionSeeder extends Seeder
                 'question' => 'Apa hasil dari 12 - 5',
                 'answers' => [
                     ['answer' => '10', 'is_correct' => 0],
-                    ['answer' => '7', 'is_correct' => 0],
+                    ['answer' => '7', 'is_correct' => 1],
                     ['answer' => '4', 'is_correct' => 0],
-                    ['answer' => '17', 'is_correct' => 1],
+                    ['answer' => '17', 'is_correct' => 0],
                 ],
             ],
             [

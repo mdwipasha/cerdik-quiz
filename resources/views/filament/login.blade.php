@@ -43,7 +43,7 @@
         left: 5%;
         top: 10%;
         height: 80%;
-        width: 90%;
+        width: auto;
         position: fixed;
         background-color: #ffffff;
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1) !important;

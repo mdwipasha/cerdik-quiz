@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('image')->nullable()->default('quiz/YU.png');
+            $table->string('image')->nullable();
             $table->boolean('is_private')->default(0); 
             $table->string('user_emails')->nullable();  
             $table->timestamps();

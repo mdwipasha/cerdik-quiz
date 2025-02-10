@@ -8,33 +8,34 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-center text-2xl font-bold text-gray-700 mb-6">Leaderboard - {{ $quiz->title }}</h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full border-collapse border border-gray-300">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white shadow-lg rounded-xl p-8">
+                <h2 class="text-center text-3xl font-bold text-gray-800 mb-6">🏆 Leaderboard - {{ $quiz->title }}</h2>
+                <div class="overflow-hidden border border-gray-300 rounded-lg">
+                    <table class="w-full text-left">
                         <thead>
-                            <tr class="bg-gray-200">
-                                <th class="border border-gray-300 px-4 py-2 text-gray-700">Rank</th>
-                                <th class="border border-gray-300 px-4 py-2 text-gray-700">Nama</th>
-                                <th class="border border-gray-300 px-4 py-2 text-gray-700">Skor</th>
+                            <tr class="bg-orange-500 text-white text-center">
+                                <th class="px-6 py-3 text-lg">Rank</th>
+                                <th class="px-6 py-3 text-lg">Nama</th>
+                                <th class="px-6 py-3 text-lg">Score</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="divide-y divide-gray-300">
                             @foreach($leaderboard as $index => $entry)
-                                <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : 'bg-white' }} hover:bg-gray-50">
-                                    <td class="border border-gray-300 px-4 py-2 text-center font-semibold"> 
-                                    @if ($index == 0)
-                                        🥇 1
-                                    @elseif ($index == 1)
-                                        🥈 2
-                                    @elseif ($index == 2)
-                                        🥉 3
-                                    @else
-                                        {{ $index + 1 }}
-                                    @endif</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $entry->name }}</td>
-                                    <td class="border border-gray-300 px-4 py-2 text-center font-bold text-orange-600">{{ $entry->score }}</td>
+                                <tr class="{{ $index % 2 == 0 ? 'bg-gray-100' : 'bg-white' }} hover:bg-gray-200 transition duration-200">
+                                    <td class="px-6 py-4 text-center font-semibold text-lg">
+                                        @if ($index == 0)
+                                            🥇 1
+                                        @elseif ($index == 1)
+                                            🥈 2
+                                        @elseif ($index == 2)
+                                            🥉 3
+                                        @else
+                                            {{ $index + 1 }}
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 text-center font-medium text-gray-800">{{ $entry->name }}</td>
+                                    <td class="px-6 py-4 text-center font-bold text-orange-600 text-xl">{{ $entry->score }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -44,4 +45,3 @@
         </div>
     </div>
 </x-app-layout>
-    

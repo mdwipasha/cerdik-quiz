@@ -9,52 +9,51 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-4xl mx-auto px-6 lg:px-8">
-            <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                <div class="p-6">
-                    <h1 class="text-xl font-semibold text-gray-700 mb-4">Results Quizzes</h1>
-                    
-                    <table class="table-auto w-full border-collapse border border-gray-200">
-                        <thead>
-                            <tr class="bg-gray-100">
-                                <th class="border border-gray-300 px-4 py-2 text-left">No</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Quiz</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Score</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Correct</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Status</th>
-                                <th class="border border-gray-300 px-4 py-2 text-left">Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($results as $key => $result)
-                                <tr>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $key + 1 }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $result->quiz->title }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $result->score }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $result->correct }} OF {{ $quiz->question->count() }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">
-                                        @if ($result->status == 'Pending')
-                                            <span class="px-2 py-1 text-sm font-medium rounded-lg bg-yellow-100 text-yellow-800">
-                                                {{ ucfirst($result->status) }}
-                                            </span>
-                                        @else
-                                            <span class="px-2 py-1 text-sm font-medium rounded-lg {{ $result->status == 'Failed' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600' }}">
-                                                {{ ucfirst($result->status) }}
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $result->created_at->format('d M Y H:i:s') }}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="border border-gray-300 px-4 py-2 text-center text-gray-500">
-                                        No quiz results found for this quiz.
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>   
-                </div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <h1 class="text-2xl font-semibold text-gray-700 mb-6">Results Quizzes</h1>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                @forelse ($results as $result)
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                        <!-- Bagian Gambar -->
+                        <img src="{{ asset('storage/' . $result->quiz->image) }}" 
+                             alt="{{ $result->quiz->title }}" 
+                             class="w-full h-40 object-cover">
+
+                        <div class="p-4">
+                            <div class="flex items-center mb-4">
+                                <div class="text-sm font-medium text-gray-600">
+                                    {{ $result->quiz->title }}
+                                </div>
+                                <span class="ml-auto bg-orange-100 text-orange-600 text-xs font-medium px-2 py-1 rounded-lg">
+                                    {{ $quiz->question->count() }} Qs
+                                </span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="block text-sm font-semibold text-gray-700">Score:</span>
+                                <span class="block text-lg font-bold {{ $result->score < 80 ? 'text-red-600' : 'text-green-600' }}">{{ $result->score }}%</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="block text-sm font-semibold text-gray-700">Correct:</span>
+                                <span class="block text-gray-600">{{ $result->correct }} of {{ $quiz->question->count() }}</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="block text-sm font-semibold text-gray-700">Status:</span>
+                                <span class="block px-2 w-14 py-1 text-xs font-medium rounded-lg {{ $result->status == 'Failed' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600' }}">
+                                    {{ ucfirst($result->status) }}
+                                </span>
+                            </div>
+                            <div>
+                                <span class="block text-sm font-semibold text-gray-700">Date:</span>
+                                <span class="block text-gray-600">{{ $result->created_at->format('d M Y H:i') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-span-full text-center text-gray-500">
+                        No quiz results found.
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
