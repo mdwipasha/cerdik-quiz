@@ -39,7 +39,7 @@
     }
 
     .container {
-        max-width: 1300px;
+        max-width: auto;
         left: 5%;
         top: 10%;
         height: 80%;
@@ -102,6 +102,7 @@
         top: 0;
         left: 50%;
         transform: translateX(-50%);
+        display: none;
     }
 
     .fi-logo {
@@ -155,6 +156,7 @@
         #img-fluid {
             width: 150px;
             top: 5%;
+            display: block;
         }
 
         .container {

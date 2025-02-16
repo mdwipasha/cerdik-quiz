@@ -16,7 +16,7 @@
                 @forelse ($results as $result)
                     <div class="bg-white shadow-md rounded-lg overflow-hidden">
                         <!-- Bagian Gambar -->
-                        <img src="{{ asset('storage/' . $result->quiz->image) }}" 
+                        <img src="{{ $result->quiz->image ? Storage::url($result->quiz->image) : asset('assets/img/no-image.jpg') }}" 
                              alt="{{ $result->quiz->title }}" 
                              class="w-full h-40 object-cover">
 

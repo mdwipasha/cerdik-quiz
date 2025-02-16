@@ -82,11 +82,11 @@
                                             </div>
                                             <div class="flex space-x-2">
                                                 @if($student->userQuiz)
-                                                    <span class="px-2 py-1 rounded-full {{ $student->userQuiz->status == 'failed' ? 'bg-red-200 text-red-800' : 'bg-green-200 text-green-800' }}">
+                                                    <span class="px-1 py-2 w-16 text-center rounded-lg {{ $student->userQuiz->status == 'Failed' ? 'bg-red-200 text-red-800' : 'bg-green-200 text-green-800' }}">
                                                         {{ ucfirst($student->userQuiz->status) }}
                                                     </span>
                                                 @else
-                                                    <span class="px-2 py-2 rounded-full bg-yellow-200 text-yellow-800">
+                                                    <span class="px-1 py-2 w-16 rounded-lg bg-yellow-200 text-yellow-800">
                                                         Not Started
                                                     </span>
                                                 @endif

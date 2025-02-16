@@ -81,7 +81,7 @@
                                             <p class="text-lg font-black text-black capitalize">{{ $questions->question }} ?</p>
                                             <div class="flex space-x-2">
                                                 <a href="{{ route('edit.question', $questions->id) }}" class="text-white bg-black px-5 py-1 rounded-full">Edit</a>
-                                                <form action="{{ route('delete.question', $questions->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                                <form action="{{ route('delete.question', $questions->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-white bg-red-500 px-2 py-1 rounded-full"><i class="bi bi-trash"></i></button>
