@@ -25,20 +25,54 @@ class GuruController extends Controller
         return view('Teacher.dashboard', compact('user','quizCount','quizzes'));
     }
 
-    public function resultQuiz($slug)
+    public function resultQuiz($slug, Request $request)
     {
         // Ambil kuis berdasarkan slug
         $quiz = Quiz::where('slug', $slug)->with('question')->firstOrFail();
-    
-        // Ambil hasil kuis dari user yang sedang login
-        $results = UserQuiz::where('quiz_id', $quiz->id)
-        ->with('user')
-        ->oldest()
-        ->get();
-    
-        // Tampilkan view dengan data hasil
-        return view('Teacher.result', compact('results', 'quiz'));
-    }    
+
+        // Ambil parameter sorting dari request (default: terbaru)
+        $sort = $request->get('sort', 'latest');
+
+        // Query hasil kuis
+        $resultsQuery = UserQuiz::where('quiz_id', $quiz->id)->with('user');
+
+        // Sorting berdasarkan pilihan
+        switch ($sort) {
+            case 'lowest_score':
+                $resultsQuery->orderBy('score', 'asc');
+                break;
+            case 'highest_score':
+                $resultsQuery->orderBy('score', 'desc');
+                break;
+            case 'oldest':
+                $resultsQuery->orderBy('created_at', 'asc');
+                break;
+            default: // latest
+                $resultsQuery->orderBy('created_at', 'desc');
+                break;
+        }
+
+        // Eksekusi query
+        $results = $resultsQuery->paginate(10);
+
+        // Kirim ke view
+        return view('Teacher.result', compact('results', 'quiz', 'sort'));
+    }
+
+    public function deleteResult($resultId)
+    {
+        $result = UserQuiz::findOrFail($resultId);
+        $result->delete();
+        
+        return back()->with('success', 'Quiz result deleted successfully.');
+    }
+
+    public function deleteAllResult($quizId)
+    {
+        UserQuiz::where('quiz_id', $quizId)->delete();
+        
+        return back()->with('success', 'All quiz results deleted successfully.');
+    }
 
     //QUIZ
 
@@ -121,26 +155,28 @@ class GuruController extends Controller
     public function deleteQuiz($id) {
         $quiz = Quiz::findOrFail($id);
     
-        // Check if the quiz has an associated image and delete it
+        // Hapus entri terkait di tabel user_quizzes
+        $quiz->userQuiz()->delete();
+    
+        // Hapus gambar terkait jika ada
         if ($quiz->image && Storage::exists($quiz->image)) {
             Storage::delete($quiz->image);
         }
     
-        // Delete all associated answers for each question in the quiz
+        // Hapus semua jawaban untuk setiap pertanyaan dalam quiz
         foreach ($quiz->question as $question) {
             $question->answer()->delete();
         }
     
-        // Delete all associated questions
+        // Hapus semua pertanyaan terkait
         $quiz->question()->delete();
     
-        // Delete the quiz itself
+        // Hapus quiz itu sendiri
         $quiz->delete();
     
         return redirect()->back()->with('success', 'Quiz deleted successfully.');
-    }
+    }    
     
-
     //STUDENTS
 
     public function showStudent($slug)

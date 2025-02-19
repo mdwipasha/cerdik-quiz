@@ -67,6 +67,6 @@ class AdminsPanelProvider extends PanelProvider
                 fn(): View => view('filament.login')
             )
             ->darkMode(false)
-            ->viteTheme('resources/css/filament/admins/theme.css');
+            ->viteTheme('resources/css/filament/filament.css');
     }
 }

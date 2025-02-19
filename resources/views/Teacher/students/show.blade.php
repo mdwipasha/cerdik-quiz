@@ -87,7 +87,7 @@
                                                     </span>
                                                 @else
                                                     <span class="px-1 py-2 w-16 rounded-lg bg-yellow-200 text-yellow-800">
-                                                        Not Started
+                                                        Pending
                                                     </span>
                                                 @endif
                                                 <form action="{{ route('delete.siswa', $course->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus siswa ini?')">

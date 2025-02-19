@@ -42,6 +42,9 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::post('/teacher/quiz/{id}', [GuruController::class, 'updateQuiz'])->name('update.quiz');
     Route::delete('/teacher/quiz/{id}', [GuruController::class, 'deleteQuiz'])->name('delete.quiz');
     Route::get('/teacher/quiz/{slug}/result', [GuruController::class, 'resultQuiz'])->name('result.quiz');
+    Route::delete('/teacher/quiz/result/{id}/delete-all', [GuruController::class, 'deleteAllResult'])->name('result.quiz.delete.all');
+    Route::delete('/teacher/quiz/result/{id}', [GuruController::class, 'deleteResult'])->name('result.quiz.delete');
+    
     
     //QUESTIONS
     Route::get('/teacher/quiz/detail/{slug}', [QuizController::class, 'showQuestion'])->name('detail.quiz');

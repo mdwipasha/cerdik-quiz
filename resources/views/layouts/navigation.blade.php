@@ -43,7 +43,7 @@
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('guru.quiz')" :active="request()->routeIs('guru.quiz') || request()->routeIs('edit.quiz') || request()->routeIs('detail.quiz') || request()->routeIs('create.question') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('create.siswa') || request()->routeIs('quiz.result')">
+                        <x-nav-link :href="route('guru.quiz')" :active="request()->routeIs('guru.quiz') || request()->routeIs('edit.quiz') || request()->routeIs('detail.quiz') || request()->routeIs('create.question') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('create.siswa') || request()->routeIs('result.quiz')">
                             <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Quizzes') }}
                         </x-nav-link>                        
                     </div>
@@ -120,7 +120,7 @@
             <x-responsive-nav-link :href="route('guru.dashboard')" :active="request()->routeIs('guru.dashboard')">
                 <i class="bi bi-house me-1 text-lg"></i> {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('guru.quiz')" :active="request()->routeIs('guru.quiz') || request()->routeIs('edit.quiz') || request()->routeIs('detail.quiz') || request()->routeIs('create.question') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('create.siswa') || request()->routeIs('quiz.result')">
+            <x-responsive-nav-link :href="route('guru.quiz')" :active="request()->routeIs('guru.quiz') || request()->routeIs('edit.quiz') || request()->routeIs('detail.quiz') || request()->routeIs('create.question') || request()->routeIs('edit.question') || request()->routeIs('show.siswa') || request()->routeIs('create.siswa') || request()->routeIs('result.quiz')">
                 <i class="bi bi-journal-text me-1 text-lg"></i> {{ __('My Quizzes') }}
             </x-responsive-nav-link>      
             <x-responsive-nav-link :href="route('create.quiz')" :active="request()->routeIs('create.quiz')">
