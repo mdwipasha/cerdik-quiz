@@ -1,4 +1,5 @@
 <x-app-layout>
+    <title>Manage Quiz - {{ config('app.name') }}</title>`
     <x-slot name="header">
         <!-- Breadcrumb Navigation -->
         <nav class="text-sm font-semibold text-gray-500">

@@ -1,4 +1,5 @@
 <x-app-layout>
+    <title>Dashboard Guru - {{ config('app.name') }}</title>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
@@ -37,7 +38,7 @@
             <!-- Section: Your Quiz -->
             <div class="flex justify-between mt-6 items-center">
                 <h3 class="text-2xl font-bold">Your Quizzes</h3>
-                <a href="{{ route('guru.quiz') }}" class="text-blue-600 hover:underline">Show More</a>
+                <a href="{{ route('guru.quiz') }}" class="text-orange-600 hover:underline">Show More</a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
@@ -46,7 +47,7 @@
                         <div class="p-6">
                             <div class="flex items-center gap-4">
                                 <img src="{{ $quiz->image ? Storage::url($quiz->image) : asset('assets/img/no-image.jpg') }}" 
-                                    alt="Quiz Icon" class="w-16 h-16 object-cover rounded-full">
+                                    alt="Icon {{ $quiz->title }}" class="w-16 h-16 object-cover rounded-full">
                                 <div>
                                     <h4 class="text-xl font-bold uppercase mb-2">{{ $quiz->title }}</h4>
                                     <span class="px-3 py-1 text-sm {{ $quiz->is_private ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800' }} rounded-full font-semibold">
@@ -60,7 +61,7 @@
                                     <h5 class="text-lg font-bold">{{ $quiz->question->count() }}</h5>
                                     <p class="text-gray-500">Questions</p>
                                 </div>
-                                {{-- <a href="{{ route('quiz.show', $quiz->slug) }}" class="text-blue-600 hover:underline">View Quiz</a> --}}
+                                {{-- <a href="{{ route('quiz.show', $quiz->slug) }}" class="text-orange-600 hover:underline">View Quiz</a> --}}
                             </div>
                         </div>
                     </div>

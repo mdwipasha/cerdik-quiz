@@ -1,10 +1,11 @@
 <x-app-layout>
+    <title>Finished Quiz - {{ config('app.name') }}</title>
     <x-slot name="header">
         <!-- Breadcrumb Navigation -->
         <nav class="text-sm font-semibold text-gray-500">
             <a href="{{ route('siswa.dashboard') }}" class="hover:text-gray-700">DASHBOARD</a>
             <span class="mx-2">/</span>
-            <span class="text-black">RESULT DETAILS</span>
+            <span class="text-black">FINISHED QUIZ</span>
         </nav>
     </x-slot>
 
@@ -53,11 +54,11 @@
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="mt-8 flex justify-between">
-                        <a href="{{ route('siswa.dashboard') }}" class="bg-orange-700 text-white text-sm font-semibold px-6 py-2 rounded-md hover:bg-orange-800 focus:outline-none focus:ring-2 focus:ring-orange-600">Kembali</a>
-                        <a href="#" class="bg-gray-800 text-white text-sm font-semibold px-6 py-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600">Coba Lagi ?</a>
-                    </div>
-                </div>
+                    <div class="mt-8 w-full">
+                        <a href="{{ route('quiz.finished') }}" class="bg-orange-700 text-white text-sm font-semibold px-6 py-2 rounded-md hover:bg-orange-800 focus:outline-none focus:ring-2 focus:ring-orange-600 w-full block text-center">Kembali</a>
+                        {{-- <a href="{{ route('quiz.question', ['slug' => $quiz->slug, 'index' => 1]) }}" class="bg-gray-800 text-white text-sm font-semibold px-6 py-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600">Coba Lagi ?</a> --}}
+                    </div>                    
+                </div> 
             </div>
         </div>
     </div>

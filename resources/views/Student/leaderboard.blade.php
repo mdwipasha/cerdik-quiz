@@ -1,4 +1,5 @@
 <x-app-layout>
+    <title>Leaderboard {{ $quiz->title }} - {{ config('app.name') }}</title>
     <x-slot name="header">
         <nav class="text-sm font-semibold text-gray-500">
             <a href="{{ route('siswa.dashboard') }}" class="hover:text-gray-700">DASHBOARD</a> 
@@ -18,6 +19,7 @@
                                 <th class="px-6 py-3 text-lg">Rank</th>
                                 <th class="px-6 py-3 text-lg">Nama</th>
                                 <th class="px-6 py-3 text-lg">Score</th>
+                                <th class="px-6 py-3 text-lg">Tanggal</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-300">
@@ -36,6 +38,9 @@
                                     </td>
                                     <td class="px-6 py-4 text-center font-medium text-gray-800">{{ $entry->name }}</td>
                                     <td class="px-6 py-4 text-center font-bold text-orange-600 text-xl">{{ $entry->score }}</td>
+                                    <td class="px-6 py-4 text-center text-sm">
+                                        {{ $entry->created_at ? $entry->created_at->format('d M Y H:i') : '-' }}
+                                    </td>                                    
                                 </tr>
                             @endforeach
                         </tbody>

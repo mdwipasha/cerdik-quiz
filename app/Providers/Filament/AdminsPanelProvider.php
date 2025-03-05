@@ -30,8 +30,8 @@ class AdminsPanelProvider extends PanelProvider
             ->id('admins')
             ->path('admins')
             ->login()
-            ->brandLogo(asset('assets/img/YU.png'))
-            ->brandLogoHeight('100px')
+            ->brandLogo(asset('assets/img/cerdik-quiz.png'))
+            ->brandLogoHeight('50px')
             ->sidebarCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Orange,

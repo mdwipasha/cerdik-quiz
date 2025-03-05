@@ -16,7 +16,9 @@ class SiswaController extends Controller
 
     public function detail($slug) {
         $course = Quiz::where('slug', $slug)->with(['question','user'])->firstOrFail();
-        return view('Student.detail', compact('course'));
+        $quizId = $course->id;
+        $attempts = UserQuiz::where('user_id', auth()->id())->where('quiz_id', $quizId)->count();
+        return view('Student.detail', compact('course','attempts'));
     }
 
     public function leaderboard($quizId)
@@ -24,11 +26,10 @@ class SiswaController extends Controller
         $quiz = Quiz::findOrFail($quizId);
         
         $leaderboard = UserQuiz::where('quiz_id', $quizId)
-            ->join('users', 'user_quizzes.user_id', '=', 'users.id')
-            ->select('users.name', 'user_quizzes.score')
-            ->orderByDesc('user_quizzes.score')
-            ->limit(10)
-            ->get();
+        ->join('users', 'user_quizzes.user_id', '=', 'users.id')
+        ->select('users.name', 'user_quizzes.score', 'user_quizzes.created_at')
+        ->orderByDesc('user_quizzes.score')
+        ->get();
 
         return view('Student.leaderboard', compact('quiz', 'leaderboard'));
     }
@@ -39,10 +40,17 @@ class SiswaController extends Controller
 
         // Hanya menampilkan quiz private yang mengandung email siswa
         $courses = Quiz::where('is_private', false)
-                    ->where('user_emails', 'LIKE', "%$userEmail%")
-                    ->get();
+        ->where('user_emails', 'LIKE', "%$userEmail%")
+        ->get(); // Mengambil banyak data (Collection)
 
-        return view('Student.quizzes', compact('courses'));
+        $attempts = [];
+
+        foreach ($courses as $course) {
+            $attempts[$course->id] = UserQuiz::where('user_id', auth()->id())
+                                            ->where('quiz_id', $course->id)
+                                            ->count();
+        }
+        return view('Student.quizzes', compact('courses','attempts'));
     }
 
     public function question($slug, $index) {
@@ -57,6 +65,11 @@ class SiswaController extends Controller
             abort(403, 'Anda tidak diizinkan mengakses quiz ini'); // Akses ditolak
         }
         
+        $quizId = $quiz->id;
+        $attempts = UserQuiz::where('user_id', auth()->id())->where('quiz_id', $quizId)->count();
+        if ($attempts >= 3) {
+            return redirect()->back()->with('error', 'Anda sudah mencapai batas percobaan! ('.$attempts.'/3).');
+        }
 
         // Pastikan indeks valid
         if ($index < 1 || $index > $questions->count()) {

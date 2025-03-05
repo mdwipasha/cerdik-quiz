@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $quiz->title }}</title>
+    <title>{{ $quiz->title }} ({{ $index }}) - {{ config('app.name') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -32,7 +31,7 @@
                 <!-- Logo -->
                 <div class="flex items-center">
                     <div class="w-10 h-10 bg-orange-400 rounded-full flex items-center justify-center mr-3">
-                        <img src="{{ $quiz->image ? Storage::url($quiz->image) : asset('assets/img/no-image.jpg') }}" alt="Icon Quiz" class="w-10 h-10 rounded-full">
+                        <img src="{{ $quiz->image ? Storage::url($quiz->image) : asset('assets/img/no-image.jpg') }}" alt="Icon {{ $quiz->title }}" class="w-10 h-10 rounded-full">
                     </div>
                     <span class="text-lg font-bold text-gray-800">{{ $quiz->title }}</span>
                 </div>

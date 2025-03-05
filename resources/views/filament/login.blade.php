@@ -1,5 +1,5 @@
-<img src="{{ asset('assets/img/admin.png') }}" alt="" class="img-fluid" id="img-login">
-<img src="{{ asset('assets/img/YU.png') }}" alt="" class="img-logo" id="img-fluid">
+<img src="{{ asset('assets/img/admin.png') }}" alt="Admin Logo" class="img-fluid" id="img-login">
+<img src="{{ asset('assets/img/cerdik-quiz.png') }}" alt="Cerdik Quiz" class="img-logo" id="img-fluid">
 <main class="container">
 </main>
 <style>
@@ -97,7 +97,7 @@
     }
 
     #img-fluid {
-        width: 150px;
+        width: 100px;
         position: fixed;
         top: 0;
         left: 50%;
@@ -154,7 +154,7 @@
         }
 
         #img-fluid {
-            width: 150px;
+            width: 100px;
             top: 5%;
             display: block;
         }

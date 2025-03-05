@@ -1,4 +1,5 @@
 <x-app-layout>
+    <title> Result {{ $quiz->title }} - {{ config('app.name') }}</title>
     <x-slot name="header">
         <!-- Breadcrumb Navigation -->
         <nav class="text-sm font-semibold text-gray-500">
@@ -17,7 +18,7 @@
                     <div class="flex items-center">
                         <!-- Quiz Icon -->
                         <div class="w-20 h-20 bg-orange-400 rounded-full flex items-center justify-center">
-                            <img src="{{ $quiz->image ? Storage::url($quiz->image) : asset('assets/img/no-image.jpg') }}" alt="Icon" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
+                            <img src="{{ $quiz->image ? Storage::url($quiz->image) : asset('assets/img/no-image.jpg') }}" alt="Icon {{ $quiz->title }}" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
                         </div>
 
                         <!-- Quiz Info -->
@@ -41,7 +42,7 @@
                     <form action="{{ route('result.quiz.delete.all', $quiz->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete all quiz results?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-white bg-red-500 px-2 py-1 rounded-full"><i class="bi bi-trash"></i></button>
+                        <button type="submit" class="text-white bg-red-500 px-5 py-3 text-xl rounded-lg"><i class="bi bi-trash"></i></button>
                     </form>
                 </div>
 

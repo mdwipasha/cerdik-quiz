@@ -1,4 +1,5 @@
 <x-app-layout>
+    <title>Edit Question - {{ config('app.name') }}</title>
     <x-slot name="header">
         <!-- Breadcrumb Navigation -->
         <nav class="text-sm font-semibold text-gray-500">

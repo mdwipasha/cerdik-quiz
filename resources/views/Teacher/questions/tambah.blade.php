@@ -1,4 +1,5 @@
 <x-app-layout>
+    <title>New Question - {{ config('app.name') }}</title>
     <x-slot name="header">
         <!-- Breadcrumb Navigation -->
         <nav class="text-sm font-semibold text-gray-500">
@@ -18,7 +19,7 @@
                     <div class="flex items-center">
                         <!-- Quiz Icon -->
                         <div class="w-20 h-20 bg-orange-400 rounded-full flex items-center justify-center">
-                            <img src="{{ $course->image ? Storage::url($course->image) : asset('assets/img/no-image.jpg') }}" alt="Icon" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
+                            <img src="{{ $course->image ? Storage::url($course->image) : asset('assets/img/no-image.jpg') }}" alt="Icon {{ $course->title }}" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
                         </div>
 
                         <!-- Quiz Info -->
