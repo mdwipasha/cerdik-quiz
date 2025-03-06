@@ -21,6 +21,8 @@
                             <img src="{{ $quiz->image ? Storage::url($quiz->image) : asset('assets/img/no-image.jpg') }}" alt="Icon {{ $quiz->title }}" class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500">
                         </div>
 
+                       
+
                         <!-- Quiz Info -->
                         <div class="ml-4 flex-grow">
                             <h2 class="text-2xl font-bold text-black">{{ $quiz->title }}</h2>
@@ -39,7 +41,7 @@
                             </span>
                         </div>
                     </div>
-                    <form action="{{ route('result.quiz.delete.all', $quiz->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete all quiz results?');">
+                    <form action="{{ route('result.quiz.delete.all', $quiz->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="text-white bg-red-500 px-5 py-3 text-xl rounded-lg"><i class="bi bi-trash"></i></button>
@@ -59,6 +61,21 @@
                         </select>
                     </form>
                 </div>
+
+                @if(session('success'))
+                    <div id="alert-success" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-5" role="alert">
+                        <span class="block sm:inline">{{ session('success') }}</span>
+                        <button 
+                            type="button" 
+                            class="absolute top-0 bottom-0 right-0 px-4 py-3" 
+                            onclick="document.getElementById('alert-success').style.display='none';">
+                            <svg class="fill-current h-5 w-5 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <title>Close</title>
+                                <path d="M14.348 5.652a1 1 0 10-1.414-1.414L10 7.172 7.066 4.238a1 1 0 10-1.414 1.414l2.934 2.934-2.934 2.934a1 1 0 001.414 1.414L10 10.828l2.934 2.934a1 1 0 001.414-1.414l-2.934-2.934 2.934-2.934z"/>
+                            </svg>
+                        </button>
+                    </div>
+                @endif
 
                 <!-- Quiz Results Table -->
                 <div class="p-6 overflow-x-auto">
@@ -98,7 +115,7 @@
                                     </td>
                                     <td class="px-4 py-3">{{ $result->created_at->format('d M Y H:i:s') }}</td>
                                     <td class="px-4 py-3">
-                                        <form action="{{ route('result.quiz.delete', $result->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this result?');">
+                                        <form action="{{ route('result.quiz.delete', $result->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-white bg-red-500 px-2 py-1 rounded-full"><i class="bi bi-trash"></i></button>
@@ -114,7 +131,11 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <div class="mt-2">
+                        {{ $results->links() }}
+                    </div>
                 </div>
+
 
                 <div class="p-6">
                     <a href="{{ route('guru.quiz') }}" class="text-orange-500 font-semibold hover:underline">

@@ -45,6 +45,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="mt-2">
+                        {{ $leaderboard->links() }}
+                    </div>
                 </div>
             </div>
         </div>

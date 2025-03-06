@@ -29,7 +29,7 @@ class SiswaController extends Controller
         ->join('users', 'user_quizzes.user_id', '=', 'users.id')
         ->select('users.name', 'user_quizzes.score', 'user_quizzes.created_at')
         ->orderByDesc('user_quizzes.score')
-        ->get();
+        ->paginate(10);
 
         return view('Student.leaderboard', compact('quiz', 'leaderboard'));
     }

@@ -22,7 +22,7 @@
                         <!-- Icon Upload Section -->
                         <div class="flex items-center mb-6">
                             <div id="icon-preview" class="w-24 h-24 border-dashed border-2 border-gray-400 flex items-center justify-center rounded-full overflow-hidden">
-                                <img id="icon-image" src="{{ $quiz->image ? Storage::url($quiz->image) : '' }}" alt="ICON {{ $course->title }}" class="{{ $quiz->image ? '' : 'hidden' }} w-full h-full object-cover">
+                                <img id="icon-image" src="{{ $quiz->image ? Storage::url($quiz->image) : '' }}" alt="ICON {{ $quiz->title }}" class="{{ $quiz->image ? '' : 'hidden' }} w-full h-full object-cover">
                             </div>
                             <label for="icon" class="ml-4 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded cursor-pointer">
                                 ADD ICON

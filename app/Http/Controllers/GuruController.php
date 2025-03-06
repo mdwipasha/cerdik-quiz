@@ -77,7 +77,7 @@ class GuruController extends Controller
     //QUIZ
 
     public function showQuiz() {
-        $courses = Quiz::where('user_id', Auth::id())->get();
+        $courses = Quiz::where('user_id', Auth::id())->paginate(10);
         return view('Teacher.quiz.show', compact('courses'));
     }
 

@@ -91,7 +91,7 @@
                                                         Pending
                                                     </span>
                                                 @endif
-                                                <form action="{{ route('delete.siswa', $course->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus siswa ini?')">
+                                                <form action="{{ route('delete.siswa', $course->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="hidden" name="email" value="{{ $student->email }}">
